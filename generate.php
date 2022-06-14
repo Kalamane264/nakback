@@ -17,6 +17,8 @@ class Szivessegi
         $this->data = new DataSzivessegi();
         $this->data = ($cumo);
 
+        // var_dump($this->data);
+
         $this->generate();
     }
 
@@ -28,11 +30,6 @@ class Szivessegi
 
         $pdf->setFontSubsetting(true);
 
-        // Set font
-        // dejavusans is a UTF-8 Unicode font, if you only need to
-        // print standard ASCII chars, you can use core fonts like
-        // helvetica or times to reduce file size.
-        
         $pdf->setDefaultMonospacedFont('dejavusans');
         $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
         $pdf->AddPage('', '', false, false);
@@ -50,15 +47,15 @@ class Szivessegi
           ];
         $pdf->setHtmlVSpace($tagvs);
         $pdf->setFont('dejavusans', '', 10.5, '', true);
-        // $pdf->setCellMargins(0, 0, 0, 0);
+        $pdf->setCellMargins(0, 0, 0, 0);
         
         $data = new DataSzivessegi();
-        
-        $data = $this->data;
+        // $data = $this->data;
         $data->hrsz = !empty($data->hrsz) ? "hrsz: ".$data->hrsz : "";
+        $data->hVevoHrsz = !empty($data->hVevoHrsz) ? "hrsz: ".$data->hVevoHrsz : "";
 
         $html = <<<EOD
-        <h2 style="text-align: center;">
+        <h2 style="text-align: center; line-height: 55px;">
             SZÍVESSÉGI FÖLDHASZNÁLATI SZERZŐDÉS
         </h2>
         EOD;
@@ -67,8 +64,11 @@ class Szivessegi
         $pdf->setFont('dejavusans', '', 9.5, '', true);
 
         $html = <<<EOD
-        <p style="line-height: 55px;">
+        <p style="line-height: 25px;">
             mely létrejött egyrészről:
+        </p>
+        <p style="line-height: 20px;">
+            &nbsp;
         </p>
         <table cellspacing="0" cellpadding="0" border="0">
             <tr>
@@ -83,7 +83,7 @@ class Szivessegi
                 <td style="line-height: 20px;">
                     Születési családi és utónév:
                 </td>
-                <td style="font-family:dejavusansb; line-height: 20px;">
+                <td style="font-family: dejavusansb; line-height: 20px;">
                     $data->fullNameBirth
                 </td>
             </tr>
@@ -91,7 +91,7 @@ class Szivessegi
                 <td style="line-height: 20px;">
                 Születési hely:
                 </td>
-                <td style="font-family:dejavusansb; line-height: 20px;">
+                <td style="font-family: dejavusansb; line-height: 20px;">
                     $data->regionOfBirth
                 </td>
             </tr>
@@ -99,7 +99,7 @@ class Szivessegi
                 <td style="line-height: 20px;">
                     Születési idő:
                 </td>
-                <td style="font-family:dejavusansb; line-height: 20px;">
+                <td style="font-family: dejavusansb; line-height: 20px;">
                     $data->dateOfBirth
                 </td>
             </tr>
@@ -107,7 +107,7 @@ class Szivessegi
                 <td style="line-height: 20px;">
                     Anyja születési neve:
                 </td>
-                <td style="font-family:dejavusansb; line-height: 20px;">
+                <td style="font-family: dejavusansb; line-height: 20px;">
                     $data->mothersName
                 </td>
             </tr>
@@ -115,14 +115,8 @@ class Szivessegi
                 <td style="line-height: 20px;">
                     Lakcím: 
                 </td>
-                <td style="font-family:dejavusansb; line-height: 20px;">
-                    $data->postalCode
-                    $data->settlement,
-                    <br>
-                    $data->kozterNev
-                    $data->kozterTipus
-                    $data->hazSzam
-                    <br>
+                <td style="font-family: dejavusansb; line-height: 20px;">
+                    $data->postalCode $data->settlement, <br>$data->kozterNev $data->kozterTipus <br>$data->hazSzam<br>
                     $data->hrsz
                 </td>
             </tr>
@@ -130,7 +124,7 @@ class Szivessegi
                 <td style="line-height: 20px;">
                     Személyi szám:
                 </td>
-                <td style="font-family:dejavusansb; line-height: 20px;">
+                <td style="font-family: dejavusansb; line-height: 20px;">
                     $data->szemSzam
                 </td>
             </tr>
@@ -138,7 +132,7 @@ class Szivessegi
                 <td style="line-height: 20px;">
                     Adóazonosító jel:
                 </td>
-                <td style="font-family:dejavusansb; line-height: 20px;">
+                <td style="font-family: dejavusansb; line-height: 20px;">
                     $data->adoazonJel
                 </td>
             </tr>
@@ -146,15 +140,176 @@ class Szivessegi
                 <td style="line-height: 20px;">
                     Állampolgárság:
                 </td>
-                <td style="font-family:dejavusansb; line-height: 20px;">
+                <td style="font-family: dejavusansb; line-height: 20px;">
                     $data->nationality
+                </td>
+            </tr>
+        </table>
+        <p style="line-height: 20px;">
+          &nbsp;
+        </p>
+        <p style="line-height: 20px;">
+            mint
+            <span style="font-family: dejavusansb;">
+                szívességi használatba adó
+            </span> (a továbbiakban: földhasználatba adó),
+        </p>
+        <p>
+            másrészről:
+        </p>
+        <p style="line-height: 20px;">
+            &nbsp;
+        </p>
+        <table cellspacing="0" cellpadding="0" border="0">
+            <tr>
+                <td style="line-height: 20px;">
+                    Név (családi és utónév):
+                </td>
+                <td style="font-family:dejavusansb; line-height: 20px;">
+                    $data->hVevoFullName
+                </td>
+            </tr>
+            <tr>
+                <td style="line-height: 20px;">
+                    Születési családi és utónév:
+                </td>
+                <td style="font-family: dejavusansb; line-height: 20px;">
+                    $data->hVevoFullNameBirth
+                </td>
+            </tr>
+            <tr>
+                <td style="line-height: 20px;">
+                Születési hely:
+                </td>
+                <td style="font-family: dejavusansb; line-height: 20px;">
+                    $data->hVevoRegionOfBirth
+                </td>
+            </tr>
+            <tr>
+                <td style="line-height: 20px;">
+                    Születési idő:
+                </td>
+                <td style="font-family: dejavusansb; line-height: 20px;">
+                    $data->hVevoDateOfBirth
+                </td>
+            </tr>
+            <tr>
+                <td style="line-height: 20px;">
+                    Anyja születési neve:
+                </td>
+                <td style="font-family: dejavusansb; line-height: 20px;">
+                    $data->hVevoMothersName
+                </td>
+            </tr>
+            <tr>
+                <td style="line-height: 20px;">
+                    Lakcím: 
+                </td>
+                <td style="font-family: dejavusansb; line-height: 20px;">
+                    $data->hVevoPostalCode
+                    $data->hVevoSettlement,
+                    <br>
+                    $data->hVevoKozterNev
+                    $data->hVevoKozterTipus
+                    $data->hVevoHazSzam
+                    <br>
+                    $data->hVevoHrsz
+                </td>
+            </tr>
+            <tr>
+                <td style="line-height: 20px;">
+                    Személyi szám:
+                </td>
+                <td style="font-family: dejavusansb; line-height: 20px;">
+                    $data->hVevoSzemSzam
+                </td>
+            </tr>
+            <tr>
+                <td style="line-height: 20px;">
+                    Adóazonosító jel:
+                </td>
+                <td style="font-family: dejavusansb; line-height: 20px;">
+                    $data->hVevoAdoazonJel
+                </td>
+            </tr>
+            <tr>
+                <td style="line-height: 20px;">
+                    Állampolgárság:
+                </td>
+                <td style="font-family: dejavusansb; line-height: 20px;">
+                    $data->hVevoNationality
+                </td>
+            </tr>
+            <tr>
+                <td style="line-height: 20px;">
+                    Földműves nyilvántartási szám:
+                </td>
+                <td style="font-family: dejavusansb; line-height: 20px;">
+                    $data->hVevoFoldmuvesNyilvtartSzam
+                </td>
+            </tr>
+            <tr>
+                <td style="line-height: 20px;">
+                    Kamarai tagsági azonosító szám:
+                </td>
+                <td style="font-family: dejavusansb; line-height: 20px;">
+                    $data->hVevoKamaraTagAzonSzam
+                </td>
+            </tr>
+        </table>
+        <p style="line-height: 20px;">
+            &nbsp;
+        </p>
+        <p style="text-align: justify; line-height: 15px;">mint <span style="font-family: dejavusansb;">szívességi használatba vevő</span> (a továbbiakban: földhasználatba vevő) együtt a továbbiakban: szerződő felek között a mező- és erdőgazdasági földek forgalmáról szóló 2013. évi CXXII. törvény (a továbbiakban: Földforgalmi tv.) szerinti föld fogalma alá tartozó földrészlet szívességi használata tárgyában az alulírt helyen és időben, az alábbi feltételek mellett.
+        </p>
+        <p style="line-height: 20px;">
+            &nbsp;
+        </p>
+        <table cellspacing="0" cellpadding="0" border="0">
+            <tr>
+                <td style="line-height: 15px; width: 5%;">
+                    1.
+                </td>
+                <td style="line-height: 15px; width: 95%;">A szerződő felek megállapodnak abban, hogy jelen okirat aláírásával egyidejűleg szívességi földhasználati szerződést kötnek a földhasználatba adó alább szereplő tulajdoni hányadát képező ingatlanok vonatkozásában.
                 </td>
             </tr>
         </table>
         EOD;
 
         $pdf->writeHTML($html, false, false, false, false);
+        $html = "";
 
+        $i = 0;
+        foreach($data->foldterSections as $foldterSection)
+        {
+            $sorsz = "";
+            if($i > 0)
+            {
+                $sorsz = "1.".$i;
+            }
+
+            $html .= <<<EOD
+            <p style="line-height: 20px;">
+                &nbsp;
+            </p>
+            <table cellspacing="0" cellpadding="0" border="0">
+                <tr>
+                    <td style="line-height: 20px; width: 5%;">
+                        $sorsz
+                    </td>
+                    <td style="line-height: 20px; width: 60%;">
+                        A föld fekvése szerinti település neve:
+                    </td>
+                    <td style="font-family: dejavusansb; line-height: 20px;">
+                        $foldterSection->foldSettlement
+                    </td>
+                </tr>
+            </table>
+            EOD;
+            $i++;
+        }
+        
+        $pdf->writeHTML($html, false, false, false, false);
 
         $filename = "szivessegi_".date("yyyy_m_d_".str_replace(array(' ', '.'), '', (string)microtime())).".pdf";
         $pdf->Output( getcwd().'/pdfs/'.$filename, 'F');

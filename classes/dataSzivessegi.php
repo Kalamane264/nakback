@@ -1,9 +1,9 @@
 <?php
 class DataSzivessegi
 {
-    public function __construct() {}
+  public function __construct() {}
 
-    public $fullName;
+	public $fullName;
 
 	public $fullNameBirth;
 
@@ -106,5 +106,7 @@ class DataSzivessegi
 	public $hasznalatBirtokbavetelIdopont;
 
 	public bool $acceptNyilatkozatok;
+
+	public $foldterSections = array();
 }
 ?>
