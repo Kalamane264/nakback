@@ -50,7 +50,7 @@ class Szivessegi
         $pdf->setCellMargins(0, 0, 0, 0);
         
         $data = new DataSzivessegi();
-        // $data = $this->data;
+        $data = $this->data;
         $data->hrsz = !empty($data->hrsz) ? "hrsz: ".$data->hrsz : "";
         $data->hVevoHrsz = !empty($data->hVevoHrsz) ? "hrsz: ".$data->hVevoHrsz : "";
 
@@ -288,6 +288,8 @@ class Szivessegi
                 $sorsz = "1.".$i;
             }
 
+            $terulete = $foldterSection->foldTeruletHektar? $foldterSection->foldTeruletHektar." ha" : $foldterSection->foldTeruletM2." m2";
+
             $html .= <<<EOD
             <p style="line-height: 20px;">
                 &nbsp;
@@ -302,6 +304,95 @@ class Szivessegi
                     </td>
                     <td style="font-family: dejavusansb; line-height: 20px;">
                         $foldterSection->foldSettlement
+                    </td>
+                </tr>
+                <tr>
+                    <td style="line-height: 20px; width: 5%;">
+                        
+                    </td>
+                    <td style="line-height: 20px; width: 60%;">
+                        Fekvése:
+                    </td>
+                    <td style="font-family: dejavusansb; line-height: 20px;">
+                        $foldterSection->foldFekvese
+                    </td>
+                </tr>
+                <tr>
+                    <td style="line-height: 20px; width: 5%;">
+                        
+                    </td>
+                    <td style="line-height: 20px; width: 60%;">
+                        Helyrajzi száma:
+                    </td>
+                    <td style="font-family: dejavusansb; line-height: 20px;">
+                        $foldterSection->foldHrsz
+                    </td>
+                </tr>
+                <tr>
+                    <td style="line-height: 20px; width: 5%;">
+                        
+                    </td>
+                    <td style="line-height: 20px; width: 60%;">
+                        Művelési ága:
+                    </td>
+                    <td style="font-family: dejavusansb; line-height: 20px;">
+                        $foldterSection->foldMuvAg
+                    </td>
+                </tr>
+                <tr>
+                    <td style="line-height: 20px; width: 5%;">
+                        
+                    </td>
+                    <td style="line-height: 20px; width: 60%;">
+                        Területe:
+                    </td>
+                    <td style="font-family: dejavusansb; line-height: 20px;">
+                        $terulete
+                    </td>
+                </tr>
+                <tr>
+                    <td style="line-height: 20px; width: 5%;">
+                        
+                    </td>
+                    <td style="line-height: 20px; width: 60%;">
+                        Kataszteri tiszta jövedelme (AK):
+                    </td>
+                    <td style="font-family: dejavusansb; line-height: 20px;">
+                        $foldterSection->foldKataszteriTisztaJovedelemAK
+                    </td>
+                </tr>
+                <tr>
+                    <td style="line-height: 20px; width: 5%;">
+                        
+                    </td>
+                    <td style="line-height: 20px; width: 60%;">
+                        A bérbe adott tulajdoni hányad:
+                    </td>
+                    <td style="font-family: dejavusansb; line-height: 20px;">
+                        $foldterSection->foldBerbeadottTulajdoniHanyad
+                    </td>
+                </tr>
+                <tr>
+                    <td style="line-height: 20px; width: 5%;">
+                        
+                    </td>
+                    <td style="line-height: 20px; width: 60%;">
+                        A bérbe adott tulajdoni hányadnak megfelelő
+                        kataszteri tiszta jövedelem (AK):
+                    </td>
+                    <td style="font-family: dejavusansb; line-height: 20px;">
+                        $foldterSection->foldKataszteriTisztaJovedelemTulajdoniHanyadAK
+                    </td>
+                </tr>
+                <tr>
+                    <td style="line-height: 20px; width: 5%;">
+                        
+                    </td>
+                    <td style="line-height: 20px; width: 60%;">
+                        Terhek:
+                    </td>
+                    <td style="font-family: dejavusansb; line-height: 20px;">
+                        ?
                     </td>
                 </tr>
             </table>
