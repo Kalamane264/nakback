@@ -270,7 +270,8 @@ class Szivessegi
                 <td style="line-height: 15px; width: 5%;">
                     1.
                 </td>
-                <td style="line-height: 15px; width: 95%;">A szerződő felek megállapodnak abban, hogy jelen okirat aláírásával egyidejűleg szívességi földhasználati szerződést kötnek a földhasználatba adó alább szereplő tulajdoni hányadát képező ingatlanok vonatkozásában.
+                <td style="line-height: 15px; width: 95%;">
+                    A szerződő felek megállapodnak abban, hogy jelen okirat aláírásával egyidejűleg szívességi földhasználati szerződést kötnek a földhasználatba adó alább szereplő tulajdoni hányadát képező ingatlanok vonatkozásában.
                 </td>
             </tr>
         </table>
@@ -378,6 +379,7 @@ class Szivessegi
                     </td>
                     <td style="line-height: 20px; width: 60%;">
                         A bérbe adott tulajdoni hányadnak megfelelő
+                        <br>
                         kataszteri tiszta jövedelem (AK):
                     </td>
                     <td style="font-family: dejavusansb; line-height: 20px;">
@@ -399,7 +401,30 @@ class Szivessegi
             EOD;
             $i++;
         }
-        
+        $pdf->writeHTML($html, false, false, false, false);
+
+        $idotartam = "határozatlan";
+        if($data->hasznalatIdotartamHatarozott)
+        {
+            $idotartam = "2022 év 01 hó 02 napjától 2024 év 01 hó 02 napjáig tartó határozott";
+        }
+
+        $html = <<<EOD
+        <p style="line-height: 20px;">
+            &nbsp;
+        </p>
+        <table cellspacing="0" cellpadding="0" border="0">
+            <tr>
+                <td style="line-height: 15px; width: 5%;">
+                    2.
+                </td>
+                <td style="line-height: 15px; width: 95%;">
+                    A haszonbérbe adó az 1. pontban meghatározott termőfölde(ke)t $idotartam időtartamra a haszonbérbe vevőnek
+                    haszonbérbe adja, a haszonbérbe vevő a termőfölde(ke)t haszonbérbe veszi.
+                </td>
+            </tr>
+        </table>
+        EOD;
         $pdf->writeHTML($html, false, false, false, false);
 
         $filename = "szivessegi_".date("yyyy_m_d_".str_replace(array(' ', '.'), '', (string)microtime())).".pdf";

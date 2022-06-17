@@ -73,29 +73,7 @@ class DataSzivessegi
 
 	public $hVevoKamaraTagAzonSzam;
 
-	public $foldSettlement;
-
-	public $foldHrsz;
-
-	public $foldFekvese;
-
-	public $foldMuvAg;
-
-	public $foldTeruletHektar;
-
-	public $foldTeruletM2;
-
-	public $foldKataszteriTisztaJovedelemAk;
-
-	public $foldBerbeadottTulajdoniHanyad;
-
-	public $foldBerbeadottTulajdoniHanyadTeruletHektar;
-
-	public $foldBerbeadottTulajdoniHanyadTeruletM2;
-
-	public $foldKataszteriTisztaJovedelemTulajdoniHanyadAk;
-
-	public $hasznalatIdotartam;
+	public $hasznalatIdotartamHatarozott;
 
 	public $hasznalatbaAdasTol;
 
