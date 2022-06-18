@@ -8,7 +8,7 @@ class FoldterSection
     public $foldSettlement = "";
     public $foldHrsz = "";
     public $foldFekvese = "";
-    public $foldMuvAg = "";
+    public $foldMuvAgs = array();
     public $foldTeruletHektar = "";
     public $foldTeruletM2 = "";
     public $foldKataszteriTisztaJovedelemAK = "";

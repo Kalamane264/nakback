@@ -1,6 +1,7 @@
 <?php
 require_once("TCPDF/tcpdf.php");
-require_once("classes/dataSzivessegi.php");
+require_once("models/dataSzivessegi.php");
+require_once("managers/grammar.php");
 
 class Szivessegi
 {
@@ -291,6 +292,19 @@ class Szivessegi
 
             $terulete = $foldterSection->foldTeruletHektar? $foldterSection->foldTeruletHektar." ha" : $foldterSection->foldTeruletM2." m2";
 
+            $muvelesi_aga = "";
+            foreach($foldterSection->foldMuvAgs as $foldMuvAg)
+            {
+                if($foldMuvAg->checked)
+                {
+                    if($muvelesi_aga != "")
+                    {
+                        $muvelesi_aga .= ", ";
+                    }
+                    $muvelesi_aga .= $foldMuvAg->text;
+                }
+            }
+
             $html .= <<<EOD
             <p style="line-height: 20px;">
                 &nbsp;
@@ -337,7 +351,7 @@ class Szivessegi
                         Művelési ága:
                     </td>
                     <td style="font-family: dejavusansb; line-height: 20px;">
-                        $foldterSection->foldMuvAg
+                        $muvelesi_aga
                     </td>
                 </tr>
                 <tr>
@@ -406,7 +420,9 @@ class Szivessegi
         $idotartam = "határozatlan";
         if($data->hasznalatIdotartamHatarozott)
         {
-            $idotartam = "2022 év 01 hó 02 napjától 2024 év 01 hó 02 napjáig tartó határozott";
+            $tol = Grammar::ev_ho_nap($data->hasznalatbaAdasTol);
+            $ig = Grammar::ev_ho_nap($data->hasznalatbaAdasIg);
+            $idotartam = $tol." napjától ".$ig." napjáig tartó határozott";
         }
 
         $html = <<<EOD
@@ -421,6 +437,79 @@ class Szivessegi
                 <td style="line-height: 15px; width: 95%;">
                     A haszonbérbe adó az 1. pontban meghatározott termőfölde(ke)t $idotartam időtartamra a haszonbérbe vevőnek
                     haszonbérbe adja, a haszonbérbe vevő a termőfölde(ke)t haszonbérbe veszi.
+                </td>
+            </tr>
+        </table>
+        EOD;
+        $pdf->writeHTML($html, false, false, false, false);
+
+        $html = <<<EOD
+        <p style="line-height: 20px;">
+            &nbsp;
+        </p>
+        <table cellspacing="0" cellpadding="0" border="0">
+            <tr>
+                <td style="line-height: 15px; width: 5%;">
+                    3.
+                </td>
+                <td style="line-height: 15px; width: 95%;">
+                    Felek büntetőjogi felelősségük tudatában kijelentik, hogy közeli hozzátartozónak minősülnek, mert közöttük 
+                    rokoni kapcsolat áll fenn ($data->hasznalatKozeliHozzatart).
+                </td>
+            </tr>
+        </table>
+        EOD;
+        $pdf->writeHTML($html, false, false, false, false);
+
+        $html = <<<EOD
+        <p style="line-height: 20px;">
+            &nbsp;
+        </p>
+        <table cellspacing="0" cellpadding="0" border="0">
+            <tr>
+                <td style="line-height: 15px; width: 5%;">
+                    4.
+                </td>
+                <td style="line-height: 15px; width: 95%;">
+                    A földhasználatba adó a föld használatát a földhasználatba vevőnek ingyenesen engedi át, ezért a szerződő felek földhasználati díjat nem állapítanak meg.
+                </td>
+            </tr>
+        </table>
+        EOD;
+        $pdf->writeHTML($html, false, false, false, false);
+
+        $html = <<<EOD
+        <p style="line-height: 20px;">
+            &nbsp;
+        </p>
+        <table cellspacing="0" cellpadding="0" border="0">
+            <tr>
+                <td style="line-height: 15px; width: 5%;">
+                    5.
+                </td>
+                <td style="line-height: 15px; width: 95%;">
+                    A földhasználatba vevő köteles az 1. pontban megjelölt ingatlant a jó gazda gondosságával művelési ágának megfelelően művelni és folyamatosan gondoskodni a termőképességének fenntartásáról. Az ingatlan használatának jogát sem visszterhes, sem ingyenes szerződésben harmadik fél részére nem engedheti át.
+                </td>
+            </tr>
+        </table>
+        EOD;
+        $pdf->writeHTML($html, false, false, false, false);
+
+        $ev_ho_nap = Grammar::ev_ho_nap($data->hasznalatBirtokbavetelIdopont);
+
+        $html = <<<EOD
+        <p style="line-height: 20px;">
+            &nbsp;
+        </p>
+        <table cellspacing="0" cellpadding="0" border="0">
+            <tr>
+                <td style="line-height: 15px; width: 5%;">
+                    6.
+                </td>
+                <td style="line-height: 15px; width: 95%;">
+                A szerződő felek megállapodnak abban, hogy a jelen szerződés 1. pontjában megjelölt ingatlant 
+                $ev_ho_nap 
+                napjától a földhasználó birtokba veszi és a szerződés időtartama alatt szedi annak hasznait, viseli terheit.
                 </td>
             </tr>
         </table>
