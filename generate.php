@@ -516,6 +516,246 @@ class Szivessegi
         EOD;
         $pdf->writeHTML($html, false, false, false, false);
 
+        $html = <<<EOD
+        <p style="line-height: 20px;">
+            &nbsp;
+        </p>
+        <table cellspacing="0" cellpadding="0" border="0">
+            <tr>
+                <td style="line-height: 15px; width: 5%;">
+                    7.
+                </td>
+                <td style="line-height: 15px; width: 95%;">
+                    Jelen szívességi földhasználati szerződés megszűnése esetén a földrészletet 
+                    – különös tekintettel a gyommentességre – olyan állapotban kell visszaadni a tulajdonosnak, 
+                    hogy azon a rendeltetésszerű gazdálkodás azonnal folytatható legyen.
+                </td>
+            </tr>
+        </table>
+        EOD;
+        $pdf->writeHTML($html, false, false, false, false);
+
+        $html = <<<EOD
+        <p style="line-height: 20px;">
+            &nbsp;
+        </p>
+        <table cellspacing="0" cellpadding="0" border="0">
+            <tr>
+                <td style="line-height: 15px; width: 5%;">
+                    8.
+                </td>
+                <td style="line-height: 15px; width: 95%;">
+                    Földhasználatba vevő kijelenti, hogy rendelkezik a fentiek szerinti termőföld megműveléséhez 
+                    szükséges jogi és személyi feltételekkel és azokat a szerződés hatálya alatt is fenntartja. A földhasználatba 
+                    vevő jelen szerződés aláírásával kijelenti, hogy személyében megfelel a Földforgalmi tv. 5. § 7. pontjában foglalt
+                    földműves fogalmának.
+                </td>
+            </tr>
+        </table>
+        EOD;
+        $pdf->writeHTML($html, false, false, false, false);
+
+        $html = <<<EOD
+        <p style="line-height: 20px;">
+            &nbsp;
+        </p>
+        <table cellspacing="0" cellpadding="0" border="0">
+            <tr>
+                <td style="line-height: 15px; width: 5%;">
+                    9.
+                </td>
+                <td style="line-height: 15px; width: 95%;">
+                    Földhasználatba vevő a Földforgalmi tv. 42. §-a alapján az alábbiak szerint nyilatkozom:
+                    <ul>
+                        <li>
+                            A földhasználati jog megszerzésére jogosultsággal rendelkezem, megfelelek a 40. § (1) – (4) bekezdésben, valamint a 41. §-ban foglalt feltételeknek.
+                        </li>
+                        <li>
+                            A szívességi földhasználati szerződésben megjelölt föld használatát másnak nem engedem át, azt magam használom.
+                        </li>
+                        <li>
+                            A szívességi földhasználati szerződés időtartama alatt az 1. pontban leírt földre vonatkozóan eleget teszek földhasznosítási kötelezettségemnek.
+                        </li>
+                        <li>
+                            Nincs jogerősen megállapított és fennálló földhasználati díjtartozásom.
+                        </li>
+                        <li>
+                            A szívességi földhasználati szerződés tárgyát képező föld használatba vételével a már birtokomban és használatomban lévő földterületek nagysága nem haladja meg a Földforgalmi tv. 16. § (2) – (5) bekezdések szerinti birtokmaximumot.
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+        EOD;
+        $pdf->writeHTML($html, false, false, false, false);
+
+        $html = <<<EOD
+        <p style="line-height: 20px;">
+            &nbsp;
+        </p>
+        <table cellspacing="0" cellpadding="0" border="0">
+            <tr>
+                <td style="line-height: 15px; width: 5%;">
+                    10.
+                </td>
+                <td style="line-height: 15px; width: 95%;">
+                    Földhasználatba vevő kijelenti, hogy a szívességi földhasználati szerződés tárgyát képező ingatlan elhelyezkedését, természetbeni határait ismeri.
+                </td>
+            </tr>
+        </table>
+        EOD;
+        $pdf->writeHTML($html, false, false, false, false);
+
+        $html = <<<EOD
+        <p style="line-height: 20px;">
+            &nbsp;
+        </p>
+        <table cellspacing="0" cellpadding="0" border="0">
+            <tr>
+                <td style="line-height: 15px; width: 5%;">
+                    11.
+                </td>
+                <td style="line-height: 15px; width: 95%;">
+                    A jelen szívességi földhasználati szerződésben foglalt termőföld területet terhelő közterheket a földhasználatba vevő köteles megfizetni. 
+                </td>
+            </tr>
+        </table>
+        EOD;
+        $pdf->writeHTML($html, false, false, false, false);
+
+        $html = <<<EOD
+        <p style="line-height: 20px;">
+            &nbsp;
+        </p>
+        <table cellspacing="0" cellpadding="0" border="0">
+            <tr>
+                <td style="line-height: 15px; width: 5%;">
+                    12.
+                </td>
+                <td style="line-height: 15px; width: 95%;">
+                    A földhasználókat megillető és jogszabály szerint járó támogatásokat a földhasználatba vevő jogosult igénybe venni.
+                </td>
+            </tr>
+        </table>
+        EOD;
+        $pdf->writeHTML($html, false, false, false, false);
+
+        $html = <<<EOD
+        <p style="line-height: 20px;">
+            &nbsp;
+        </p>
+        <table cellspacing="0" cellpadding="0" border="0">
+            <tr>
+                <td style="line-height: 15px; width: 5%;">
+                    13.
+                </td>
+                <td style="line-height: 15px; width: 95%;">
+                    A szerződő felek megállapodnak abban, hogy jelen szívességi földhasználati szerződés megszűnik
+                    <ul>
+                        <li>
+                            a határozott időtartamú szívességi földhasználati szerződés esetén az időtartam lejártával, a lejárat napján,
+                        </li>
+                        <li>
+                            határozatlan időtartamú szerződés esetén közös megegyezéssel, a szerződő felek által meghatározott napon,
+                        </li>
+                        <li>
+                            felmondással,
+                        </li>
+                        <li>
+                            azonnali hatályú felmondással,
+                        </li>
+                        <li>
+                            a határozatlan időtartamú szerződés esetén a szerződő felek közötti közeli hozzátartozói viszony bármilyen okból történő megszűnésével, e tényhelyzet beálltát követő 30. napon.
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+        EOD;
+        $pdf->writeHTML($html, false, false, false, false);
+
+        $html = <<<EOD
+        <p style="line-height: 20px;">
+            &nbsp;
+        </p>
+        <table cellspacing="0" cellpadding="0" border="0">
+            <tr>
+                <td style="line-height: 15px; width: 5%;">
+                    14.
+                </td>
+                <td style="line-height: 15px; width: 95%;">
+                    A határozatlan időre kötött szívességi földhasználati szerződés 60 napos felmondási idővel mondható fel. A határozott időtartamú szívességi földhasználati szerződés azonnali hatályú felmondással való megszüntetésére – a szerződő felek eltérő megállapodása hiányában – a haszonbérleti szerződés azonnali hatályú felmondására vonatkozó szabályok az irányadók.
+                </td>
+            </tr>
+        </table>
+        EOD;
+        $pdf->writeHTML($html, false, false, false, false);
+
+        $html = <<<EOD
+        <p style="line-height: 20px;">
+            &nbsp;
+        </p>
+        <table cellspacing="0" cellpadding="0" border="0">
+            <tr>
+                <td style="line-height: 15px; width: 5%;">
+                    15.
+                </td>
+                <td style="line-height: 15px; width: 95%;">
+                    A jelen szívességi földhasználati szerződésben nem szabályozott kérdésekben a Polgári Törvénykönyvről szóló 2013. évi V. törvény, továbbá Földforgalmi tv., valamint a mező- és erdőgazdasági földek forgalmáról szóló 2013. évi CXXII. törvénnyel összefüggő egyes rendelkezésekről és átmeneti szabályokról szóló 2013. évi CCXII. törvény szívességi földhasználatra vonatkozó rendelkezései az irányadóak.
+                </td>
+            </tr>
+        </table>
+        EOD;
+        $pdf->writeHTML($html, false, false, false, false);
+
+        $html = <<<EOD
+        <p style="line-height: 40px;">
+            &nbsp;
+        </p>
+        <table cellspacing="0" cellpadding="0" border="0">
+            <tr>
+                <td style="line-height: 15px; width: 5%;">
+                    16.
+                </td>
+                <td style="line-height: 15px; width: 95%;">
+                    A szerződő felek tudomásul veszik, hogy jelen szívességi földhasználati szerződés érvényességének a szívességi használatba vevő földhasználatának, földhasználati nyilvántartásban történő bejegyzésének előfeltétele a szerződés mezőgazdasági igazgatási szerv részéről történő jóváhagyása. Jelen szívességi földhasználati szerződést az aláírástól számított 8 napon belül a földhasználatba vevő köteles mezőgazdasági igazgatási szervhez jóváhagyás céljából benyújtani.
+                </td>
+            </tr>
+        </table>
+        EOD;
+        $pdf->writeHTML($html, false, false, false, false);
+
+        $html = <<<EOD
+        <p style="line-height: 10px;">
+            &nbsp;
+        </p>
+        <p>
+            Kijelentem, hogy jelen okiratban foglaltak a valóságnak megfelelnek.
+        </p>
+        EOD;
+        $pdf->writeHTML($html, false, false, false, false);
+
+        $html = <<<EOD
+        <p style="line-height: 10px;">
+            &nbsp;
+        </p>
+        <p>
+            Jelen szívességi földhasználati szerződést megkötő felek, mint szerződéses akaratuknak mindben
+             megegyezőt elolvasás és értelmezés után helyben jóváhagyólag írják alá.
+        </p>
+        EOD;
+        $pdf->writeHTML($html, false, false, false, false);
+
+        $html = <<<EOD
+        <p style="line-height: 30px;">
+            &nbsp;
+        </p>
+        <p>
+            Kelt: ________________________________, ________ év ________________________ hó ____ nap
+        </p>
+        EOD;
+        $pdf->writeHTML($html, false, false, false, false);
+
         $filename = "szivessegi_".date("yyyy_m_d_".str_replace(array(' ', '.'), '', (string)microtime())).".pdf";
         $pdf->Output( getcwd().'/pdfs/'.$filename, 'F');
         echo '{"filename":"'.$filename.'"}';
