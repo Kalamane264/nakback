@@ -756,6 +756,116 @@ class Szivessegi
         EOD;
         $pdf->writeHTML($html, false, false, false, false);
 
+        $pdf->AddPage();
+
+        $html = <<<EOD
+        <p style="line-height: 30px;">
+            &nbsp;
+        </p>
+        <table cellspacing="0" cellpadding="0" border="0">
+            <tr>
+                <td style="line-height: 20px; width: 50%; text-align: center;">
+                    _______________________________________
+                    <br>
+                    földhasználatba adó
+                </td>
+                <td style="line-height: 20px; width: 50%; text-align: center;">
+                    _______________________________________
+                    <br>
+                    földhasználatba vevő
+                </td>
+            </tr>
+        </table>
+    
+        <p style="line-height: 15px;">
+            &nbsp;
+        </p>
+        <table cellspacing="0" cellpadding="0" border="0">
+            <tr>
+                <td style="line-height: 20px; width: 50%; text-align: center;">
+                    Előttünk, mint tanúk előtt:
+                </td>
+                <td style="line-height: 20px; width: 50%; text-align: center;">
+                    &nbsp;
+                </td>
+            </tr>
+        </table>
+
+        <p style="line-height: 15px;">
+            &nbsp;
+        </p>
+        <table cellspacing="0" cellpadding="0" border="0">
+            <tr>
+                <td style="line-height: 20px; width: 50%; text-align: center;">
+                    _______________________________________
+                    <br>
+                    aláírás
+                </td>
+                <td style="line-height: 20px; width: 50%; text-align: center;">
+                    _______________________________________
+                    <br>
+                    aláírás
+                </td>
+            </tr>
+        </table>
+
+        <p style="line-height: 15px;">
+            &nbsp;
+        </p>
+        <table cellspacing="0" cellpadding="0" border="0">
+            <tr>
+                <td style="line-height: 20px; width: 50%; text-align: center;">
+                    _______________________________________
+                    <br>
+                    név
+                </td>
+                <td style="line-height: 20px; width: 50%; text-align: center;">
+                    _______________________________________
+                    <br>
+                    név
+                </td>
+            </tr>
+        </table>
+
+        <p style="line-height: 15px;">
+            &nbsp;
+        </p>
+        <table cellspacing="0" cellpadding="0" border="0">
+            <tr>
+                <td style="line-height: 20px; width: 50%; text-align: center;">
+                    _______________________________________
+                    <br>
+                    lakcím
+                </td>
+                <td style="line-height: 20px; width: 50%; text-align: center;">
+                    _______________________________________
+                    <br>
+                    lakcím
+                </td>
+            </tr>
+        </table>
+
+        <p style="line-height: 15px;">
+            &nbsp;
+        </p>
+        <table cellspacing="0" cellpadding="0" border="0">
+            <tr>
+                <td style="line-height: 20px; width: 50%; text-align: center;">
+                    _______________________________________
+                    <br>
+                    személyazonosító okmány száma
+                </td>
+                <td style="line-height: 20px; width: 50%; text-align: center;">
+                    _______________________________________
+                    <br>
+                    személyazonosító okmány száma
+                </td>
+            </tr>
+        </table>
+        EOD;
+
+        $pdf->writeHTML($html, false, false, false, false);
+
         $filename = "szivessegi_".date("yyyy_m_d_".str_replace(array(' ', '.'), '', (string)microtime())).".pdf";
         $pdf->Output( getcwd().'/pdfs/'.$filename, 'F');
         echo '{"filename":"'.$filename.'"}';
