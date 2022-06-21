@@ -400,17 +400,6 @@ class Szivessegi
                         $foldterSection->foldKataszteriTisztaJovedelemTulajdoniHanyadAK
                     </td>
                 </tr>
-                <tr>
-                    <td style="line-height: 20px; width: 5%;">
-                        
-                    </td>
-                    <td style="line-height: 20px; width: 60%;">
-                        Terhek:
-                    </td>
-                    <td style="font-family: dejavusansb; line-height: 20px;">
-                        ?
-                    </td>
-                </tr>
             </table>
             EOD;
             $i++;
