@@ -52,7 +52,6 @@ class Szivessegi
         
         $data = new DataSzivessegi();
         $data = $this->data;
-        $data->hrsz = !empty($data->hrsz) ? "hrsz: ".$data->hrsz : "";
         $data->hVevoHrsz = !empty($data->hVevoHrsz) ? "hrsz: ".$data->hVevoHrsz : "";
 
         $html = <<<EOD
@@ -117,8 +116,7 @@ class Szivessegi
                     Lakcím: 
                 </td>
                 <td style="font-family: dejavusansb; line-height: 20px;">
-                    $data->postalCode $data->settlement, <br>$data->kozterNev $data->kozterTipus <br>$data->hazSzam<br>
-                    $data->hrsz
+                    $data->postalCode $data->settlement, <br>$data->kozterNev $data->kozterTipus <br>$data->hazSzam
                 </td>
             </tr>
             <tr>
