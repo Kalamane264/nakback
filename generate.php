@@ -40,13 +40,13 @@ class Szivessegi
             var_dump($dejavusansb);
             return;
         }
-        $tagvs = [
+        /* $tagvs = [
             'p' => [
               ['h'=>0.1, ],
               ['h'=>0.1, ]
             ]
           ];
-        $pdf->setHtmlVSpace($tagvs);
+        $pdf->setHtmlVSpace($tagvs); */
         $pdf->setFont('dejavusans', '', 10.5, '', true);
         $pdf->setCellMargins(0, 0, 0, 0);
         
@@ -66,9 +66,6 @@ class Szivessegi
         $html = <<<EOD
         <p style="line-height: 25px;">
             mely létrejött egyrészről:
-        </p>
-        <p style="line-height: 20px;">
-            &nbsp;
         </p>
         <table cellspacing="0" cellpadding="0" border="0">
             <tr>
@@ -145,9 +142,6 @@ class Szivessegi
             </tr>
         </table>
         <p style="line-height: 20px;">
-          &nbsp;
-        </p>
-        <p style="line-height: 20px;">
             mint
             <span style="font-family: dejavusansb;">
                 szívességi használatba adó
@@ -155,9 +149,6 @@ class Szivessegi
         </p>
         <p>
             másrészről:
-        </p>
-        <p style="line-height: 20px;">
-            &nbsp;
         </p>
         <table cellspacing="0" cellpadding="0" border="0">
             <tr>
@@ -256,9 +247,6 @@ class Szivessegi
                 </td>
             </tr>
         </table>
-        <p style="line-height: 20px;">
-            &nbsp;
-        </p>
         <p style="text-align: justify; line-height: 15px;">mint <span style="font-family: dejavusansb;">szívességi használatba vevő</span> (a továbbiakban: földhasználatba vevő) együtt a továbbiakban: szerződő felek között a mező- és erdőgazdasági földek forgalmáról szóló 2013. évi CXXII. törvény (a továbbiakban: Földforgalmi tv.) szerinti föld fogalma alá tartozó földrészlet szívességi használata tárgyában az alulírt helyen és időben, az alábbi feltételek mellett.
         </p>
         <p style="line-height: 20px;">
@@ -289,6 +277,7 @@ class Szivessegi
             }
 
             $terulete = $foldterSection->foldTeruletHektar? $foldterSection->foldTeruletHektar." ha" : $foldterSection->foldTeruletM2." m2";
+            $teruleteHanyad = $foldterSection->foldBerbeadottTulajdoniHanyadTeruletHektar? $foldterSection->foldBerbeadottTulajdoniHanyadTeruletHektar." ha" : $foldterSection->foldBerbeadottTulajdoniHanyadTeruletM2." m2";
 
             $muvelesi_aga = "";
             foreach($foldterSection->foldMuvAgs as $foldMuvAg)
@@ -379,7 +368,7 @@ class Szivessegi
                         
                     </td>
                     <td style="line-height: 20px; width: 60%;">
-                        A bérbe adott tulajdoni hányad:
+                        A használatba adott tulajdoni hányad:
                     </td>
                     <td style="font-family: dejavusansb; line-height: 20px;">
                         $foldterSection->foldBerbeadottTulajdoniHanyad
@@ -390,7 +379,18 @@ class Szivessegi
                         
                     </td>
                     <td style="line-height: 20px; width: 60%;">
-                        A bérbe adott tulajdoni hányadnak megfelelő
+                        Használatba adott tulajdoni hányadnak megfelelő terület:
+                    </td>
+                    <td style="font-family: dejavusansb; line-height: 20px;">
+                        $teruleteHanyad
+                    </td>
+                </tr>
+                <tr>
+                    <td style="line-height: 20px; width: 5%;">
+                        
+                    </td>
+                    <td style="line-height: 20px; width: 60%;">
+                        A használatba adott tulajdoni hányadnak megfelelő
                         <br>
                         kataszteri tiszta jövedelem (AK):
                     </td>
@@ -404,13 +404,30 @@ class Szivessegi
         }
         $pdf->writeHTML($html, false, false, false, false);
 
+        $kettespont = "";
         $idotartam = "határozatlan";
+        $tol = Grammar::ev_ho_nap($data->hasznalatbaAdasTol);
+
         if($data->hasznalatIdotartamHatarozott)
         {
-            $tol = Grammar::ev_ho_nap($data->hasznalatbaAdasTol);
             $ig = Grammar::ev_ho_nap($data->hasznalatbaAdasIg);
             $idotartam = $tol." napjától ".$ig." napjáig tartó határozott";
+
+            $kettespont =  <<<EOD
+            A szerződő felek megállapodnak abban, hogy a földhasználatba adó az 1. pontban meghatározott termőfölde(ke)t
+            $idotartam
+            időtartamra a földhasználatba vevőnek ingyenes használatba adja, földhasználatba vevő földhasználatba veszi.
+            EOD;
         }
+        else
+        {
+            $kettespont =  <<<EOD
+            A szerződő felek megállapodnak abban, hogy földhasználatba adó az 1. pontban meghatározott termőfölde(ke)t 
+            $tol napjától 
+            határozatlan időtartamig a földhasználatba vevőnek ingyenes használatba adja, földhasználatba vevő földhasználatba veszi.
+            EOD;
+        }
+
 
         $html = <<<EOD
         <p style="line-height: 20px;">
@@ -422,8 +439,7 @@ class Szivessegi
                     2.
                 </td>
                 <td style="line-height: 15px; width: 95%;">
-                    A haszonbérbe adó az 1. pontban meghatározott termőfölde(ke)t $idotartam időtartamra a haszonbérbe vevőnek
-                    haszonbérbe adja, a haszonbérbe vevő a termőfölde(ke)t haszonbérbe veszi.
+                    $kettespont                    
                 </td>
             </tr>
         </table>
@@ -440,8 +456,8 @@ class Szivessegi
                     3.
                 </td>
                 <td style="line-height: 15px; width: 95%;">
-                    Felek büntetőjogi felelősségük tudatában kijelentik, hogy közeli hozzátartozónak minősülnek, mert közöttük 
-                    rokoni kapcsolat áll fenn ($data->hasznalatKozeliHozzatart).
+                    Felek büntetőjogi felelősségük tudatában kijelentik, hogy a Földforgalmi tv. 5. § 13. pontja szerinti 
+                    közeli hozzátartozónak minősülnek, mert közöttük rokoni kapcsolat áll fenn ($data->hasznalatKozeliHozzatart).
                 </td>
             </tr>
         </table>
@@ -551,22 +567,22 @@ class Szivessegi
                 <td style="line-height: 15px; width: 5%;">
                     9.
                 </td>
-                <td style="line-height: 15px; width: 95%;">
+                <td style="width: 95%;">
                     Földhasználatba vevő a Földforgalmi tv. 42. §-a alapján az alábbiak szerint nyilatkozom:
                     <ul>
-                        <li>
+                        <li style="line-height: 15px;">
                             A földhasználati jog megszerzésére jogosultsággal rendelkezem, megfelelek a 40. § (1) – (4) bekezdésben, valamint a 41. §-ban foglalt feltételeknek.
                         </li>
-                        <li>
+                        <li style="line-height: 15px;">
                             A szívességi földhasználati szerződésben megjelölt föld használatát másnak nem engedem át, azt magam használom.
                         </li>
-                        <li>
+                        <li style="line-height: 15px;">
                             A szívességi földhasználati szerződés időtartama alatt az 1. pontban leírt földre vonatkozóan eleget teszek földhasznosítási kötelezettségemnek.
                         </li>
-                        <li>
+                        <li style="line-height: 15px;">
                             Nincs jogerősen megállapított és fennálló földhasználati díjtartozásom.
                         </li>
-                        <li>
+                        <li style="line-height: 15px;">
                             A szívességi földhasználati szerződés tárgyát képező föld használatba vételével a már birtokomban és használatomban lévő földterületek nagysága nem haladja meg a Földforgalmi tv. 16. § (2) – (5) bekezdések szerinti birtokmaximumot.
                         </li>
                     </ul>
@@ -636,22 +652,22 @@ class Szivessegi
                 <td style="line-height: 15px; width: 5%;">
                     13.
                 </td>
-                <td style="line-height: 15px; width: 95%;">
+                <td style="width: 95%;">
                     A szerződő felek megállapodnak abban, hogy jelen szívességi földhasználati szerződés megszűnik
                     <ul>
-                        <li>
+                        <li style="line-height: 15px;">
                             a határozott időtartamú szívességi földhasználati szerződés esetén az időtartam lejártával, a lejárat napján,
                         </li>
-                        <li>
+                        <li style="line-height: 15px;">
                             határozatlan időtartamú szerződés esetén közös megegyezéssel, a szerződő felek által meghatározott napon,
                         </li>
-                        <li>
+                        <li style="line-height: 15px;">
                             felmondással,
                         </li>
-                        <li>
+                        <li style="line-height: 15px;">
                             azonnali hatályú felmondással,
                         </li>
-                        <li>
+                        <li style="line-height: 15px;">
                             a határozatlan időtartamú szerződés esetén a szerződő felek közötti közeli hozzátartozói viszony bármilyen okból történő megszűnésével, e tényhelyzet beálltát követő 30. napon.
                         </li>
                     </ul>
@@ -671,7 +687,7 @@ class Szivessegi
                     14.
                 </td>
                 <td style="line-height: 15px; width: 95%;">
-                    A határozatlan időre kötött szívességi földhasználati szerződés 60 napos felmondási idővel mondható fel. A határozott időtartamú szívességi földhasználati szerződés azonnali hatályú felmondással való megszüntetésére – a szerződő felek eltérő megállapodása hiányában – a haszonbérleti szerződés azonnali hatályú felmondására vonatkozó szabályok az irányadók.
+                    A határozatlan időre kötött szívességi földhasználati szerződés 60 napos felmondási idővel mondható fel. A határozott időtartamú szívességi földhasználati szerződés azonnali hatályú felmondással való megszüntetésére – a szerződő felek eltérő megállapodása hiányában - a haszonbérleti szerződés azonnali hatályú felmondására vonatkozó szabályok az irányadók.
                 </td>
             </tr>
         </table>
