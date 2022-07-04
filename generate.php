@@ -371,7 +371,7 @@ class Szivessegi
                         A használatba adott tulajdoni hányad:
                     </td>
                     <td style="font-family: dejavusansb; line-height: 20px;">
-                        $foldterSection->foldBerbeadottTulajdoniHanyad
+                        $foldterSection->foldBerbeadottTulajdoniHanyadX / $foldterSection->foldBerbeadottTulajdoniHanyadY
                     </td>
                 </tr>
                 <tr>

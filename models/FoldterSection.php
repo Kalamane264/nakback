@@ -13,6 +13,9 @@ class FoldterSection
     public $foldTeruletM2 = "";
     public $foldKataszteriTisztaJovedelemAK = "";
     public $foldBerbeadottTulajdoniHanyad = "";
+    public $foldBerbeadottTulajdoniHanyadX = "";
+    public $foldBerbeadottTulajdoniHanyadY = "";
+    
     public $foldBerbeadottTulajdoniHanyadTeruletHektar = "";
     public $foldBerbeadottTulajdoniHanyadTeruletM2 = "";
     public $foldKataszteriTisztaJovedelemTulajdoniHanyadAK = "";
