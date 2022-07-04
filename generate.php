@@ -32,8 +32,8 @@ class Szivessegi
         $pdf->setFontSubsetting(true);
 
         $pdf->setDefaultMonospacedFont('dejavusans');
-        $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
-        $pdf->AddPage('', '', false, false);
+        $pdf->setMargins(0, 10, 0);
+        $pdf->AddPage('', '', true, false);
         $dejavusansb = $pdf->AddFont("dejavusansb");
         if(!$dejavusansb)
         {
@@ -47,23 +47,37 @@ class Szivessegi
             ]
           ];
         $pdf->setHtmlVSpace($tagvs); */
-        $pdf->setFont('dejavusans', '', 10.5, '', true);
-        $pdf->setCellMargins(0, 0, 0, 0);
+        $pdf->setFont('dejavusans', '', 10.5, '', false);
+        // $pdf->setCellMargins(0, 0, 0, 0);
         
         $data = new DataSzivessegi();
         $data = $this->data;
         $data->hVevoHrsz = !empty($data->hVevoHrsz) ? "hrsz: ".$data->hVevoHrsz : "";
 
         $html = <<<EOD
-        <h2 style="text-align: center; line-height: 55px;">
+        <div style="text-align: center;">
+          <img src="assets/nakLogoForPDF.svg" />
+        </div>
+        <p style="line-height: 1px;">
+            &nbsp;
+        </p>
+        <div style="line-height: 1px; background-color: #dddddd;"> </div>
+        <p style="line-height: 5px;">
+            &nbsp;
+        </p>
+        <h2 style="text-align: center;">
             SZÍVESSÉGI FÖLDHASZNÁLATI SZERZŐDÉS
         </h2>
         EOD;
 
         $pdf->writeHTML($html, false, false, false, false);
+        $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
         $pdf->setFont('dejavusans', '', 9.5, '', true);
 
         $html = <<<EOD
+        <p style="line-height: 20px;">
+            &nbsp;
+        </p>
         <p style="line-height: 25px;">
             mely létrejött egyrészről:
         </p>
@@ -141,14 +155,16 @@ class Szivessegi
                 </td>
             </tr>
         </table>
-        <p style="line-height: 20px;">
-            mint
-            <span style="font-family: dejavusansb;">
-                szívességi használatba adó
-            </span> (a továbbiakban: földhasználatba adó),
+        <p style="line-height: 10px;">
+          &nbsp;
         </p>
-        <p>
+        <div style="line-height: 15px;">mint<span style="font-family: dejavusansb;">
+                szívességi használatba adó
+            </span> (a továbbiakban: földhasználatba adó), <br />
             másrészről:
+        </div>
+        <p style="line-height: 5px;">
+          &nbsp;
         </p>
         <table cellspacing="0" cellpadding="0" border="0">
             <tr>
@@ -247,9 +263,18 @@ class Szivessegi
                 </td>
             </tr>
         </table>
-        <p style="text-align: justify; line-height: 15px;">mint <span style="font-family: dejavusansb;">szívességi használatba vevő</span> (a továbbiakban: földhasználatba vevő) együtt a továbbiakban: szerződő felek között a mező- és erdőgazdasági földek forgalmáról szóló 2013. évi CXXII. törvény (a továbbiakban: Földforgalmi tv.) szerinti föld fogalma alá tartozó földrészlet szívességi használata tárgyában az alulírt helyen és időben, az alábbi feltételek mellett.
+        <p style="line-height: 10px;">
+            &nbsp;
         </p>
-        <p style="line-height: 20px;">
+        <div style="line-height: 15px;"> 
+            mint 
+            <span style="font-family: dejavusansb;">szívességi használatba vevő</span> 
+            (a továbbiakban: földhasználatba vevő) 
+            együtt a továbbiakban: szerződő felek között a mező- és erdőgazdasági földek forgalmáról szóló 2013. évi CXXII. 
+            törvény (a továbbiakban: Földforgalmi tv.) szerinti föld fogalma alá tartozó földrészlet szívességi használata 
+            tárgyában az alulírt helyen és időben, az alábbi feltételek mellett.
+        </div>
+        <p style="line-height: 10px;">
             &nbsp;
         </p>
         <table cellspacing="0" cellpadding="0" border="0">
@@ -265,6 +290,7 @@ class Szivessegi
         EOD;
 
         $pdf->writeHTML($html, false, false, false, false);
+        $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
         $html = "";
 
         $i = 0;
@@ -293,7 +319,7 @@ class Szivessegi
             }
 
             $html .= <<<EOD
-            <p style="line-height: 20px;">
+            <p style="line-height: 10px;">
                 &nbsp;
             </p>
             <table cellspacing="0" cellpadding="0" border="0">
@@ -403,6 +429,7 @@ class Szivessegi
             $i++;
         }
         $pdf->writeHTML($html, false, false, false, false);
+        $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
 
         $kettespont = "";
         $idotartam = "határozatlan";
@@ -430,7 +457,7 @@ class Szivessegi
 
 
         $html = <<<EOD
-        <p style="line-height: 20px;">
+        <p style="line-height: 10px;">
             &nbsp;
         </p>
         <table cellspacing="0" cellpadding="0" border="0">
@@ -445,9 +472,10 @@ class Szivessegi
         </table>
         EOD;
         $pdf->writeHTML($html, false, false, false, false);
+        $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
 
         $html = <<<EOD
-        <p style="line-height: 20px;">
+        <p style="line-height: 10px;">
             &nbsp;
         </p>
         <table cellspacing="0" cellpadding="0" border="0">
@@ -463,45 +491,48 @@ class Szivessegi
         </table>
         EOD;
         $pdf->writeHTML($html, false, false, false, false);
+        $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
 
         $html = <<<EOD
-        <p style="line-height: 20px;">
+        <p style="line-height: 10px;">
             &nbsp;
         </p>
         <table cellspacing="0" cellpadding="0" border="0">
             <tr>
-                <td style="line-height: 15px; width: 5%;">
+                <td style="width: 5%;">
                     4.
                 </td>
-                <td style="line-height: 15px; width: 95%;">
+                <td style="width: 95%;">
                     A földhasználatba adó a föld használatát a földhasználatba vevőnek ingyenesen engedi át, ezért a szerződő felek földhasználati díjat nem állapítanak meg.
                 </td>
             </tr>
         </table>
         EOD;
         $pdf->writeHTML($html, false, false, false, false);
+        $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
 
         $html = <<<EOD
-        <p style="line-height: 20px;">
+        <p style="line-height: 10px;">
             &nbsp;
         </p>
         <table cellspacing="0" cellpadding="0" border="0">
             <tr>
-                <td style="line-height: 15px; width: 5%;">
+                <td style="width: 5%;">
                     5.
                 </td>
-                <td style="line-height: 15px; width: 95%;">
+                <td style="width: 95%;">
                     A földhasználatba vevő köteles az 1. pontban megjelölt ingatlant a jó gazda gondosságával művelési ágának megfelelően művelni és folyamatosan gondoskodni a termőképességének fenntartásáról. Az ingatlan használatának jogát sem visszterhes, sem ingyenes szerződésben harmadik fél részére nem engedheti át.
                 </td>
             </tr>
         </table>
         EOD;
         $pdf->writeHTML($html, false, false, false, false);
+        $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
 
         $ev_ho_nap = Grammar::ev_ho_nap($data->hasznalatBirtokbavetelIdopont);
 
         $html = <<<EOD
-        <p style="line-height: 20px;">
+        <p style="line-height: 10px;">
             &nbsp;
         </p>
         <table cellspacing="0" cellpadding="0" border="0">
@@ -518,9 +549,10 @@ class Szivessegi
         </table>
         EOD;
         $pdf->writeHTML($html, false, false, false, false);
+        $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
 
         $html = <<<EOD
-        <p style="line-height: 20px;">
+        <p style="line-height: 10px;">
             &nbsp;
         </p>
         <table cellspacing="0" cellpadding="0" border="0">
@@ -529,17 +561,18 @@ class Szivessegi
                     7.
                 </td>
                 <td style="line-height: 15px; width: 95%;">
-                    Jelen szívességi földhasználati szerződés megszűnése esetén a földrészletet 
-                    – különös tekintettel a gyommentességre – olyan állapotban kell visszaadni a tulajdonosnak, 
+                    Jelen szívességi földhasználati szerződés megszűnése esetén a földrészletet
+                    - különös tekintettel a gyommentességre - olyan állapotban kell visszaadni a tulajdonosnak, 
                     hogy azon a rendeltetésszerű gazdálkodás azonnal folytatható legyen.
                 </td>
             </tr>
         </table>
         EOD;
         $pdf->writeHTML($html, false, false, false, false);
+        $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
 
         $html = <<<EOD
-        <p style="line-height: 20px;">
+        <p style="line-height: 10px;">
             &nbsp;
         </p>
         <table cellspacing="0" cellpadding="0" border="0">
@@ -557,9 +590,10 @@ class Szivessegi
         </table>
         EOD;
         $pdf->writeHTML($html, false, false, false, false);
+        $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
 
         $html = <<<EOD
-        <p style="line-height: 20px;">
+        <p style="line-height: 10px;">
             &nbsp;
         </p>
         <table cellspacing="0" cellpadding="0" border="0">
@@ -591,9 +625,10 @@ class Szivessegi
         </table>
         EOD;
         $pdf->writeHTML($html, false, false, false, false);
+        $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
 
         $html = <<<EOD
-        <p style="line-height: 20px;">
+        <p style="line-height: 10px;">
             &nbsp;
         </p>
         <table cellspacing="0" cellpadding="0" border="0">
@@ -608,9 +643,10 @@ class Szivessegi
         </table>
         EOD;
         $pdf->writeHTML($html, false, false, false, false);
+        $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
 
         $html = <<<EOD
-        <p style="line-height: 20px;">
+        <p style="line-height: 10px;">
             &nbsp;
         </p>
         <table cellspacing="0" cellpadding="0" border="0">
@@ -625,9 +661,10 @@ class Szivessegi
         </table>
         EOD;
         $pdf->writeHTML($html, false, false, false, false);
+        $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
 
         $html = <<<EOD
-        <p style="line-height: 20px;">
+        <p style="line-height: 10px;">
             &nbsp;
         </p>
         <table cellspacing="0" cellpadding="0" border="0">
@@ -642,14 +679,15 @@ class Szivessegi
         </table>
         EOD;
         $pdf->writeHTML($html, false, false, false, false);
+        $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
 
         $html = <<<EOD
-        <p style="line-height: 20px;">
+        <p style="line-height: 10px;">
             &nbsp;
         </p>
         <table cellspacing="0" cellpadding="0" border="0">
             <tr>
-                <td style="line-height: 15px; width: 5%;">
+                <td style="width: 5%;">
                     13.
                 </td>
                 <td style="width: 95%;">
@@ -676,26 +714,28 @@ class Szivessegi
         </table>
         EOD;
         $pdf->writeHTML($html, false, false, false, false);
+        $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
 
         $html = <<<EOD
-        <p style="line-height: 20px;">
+        <p style="line-height: 10px;">
             &nbsp;
         </p>
         <table cellspacing="0" cellpadding="0" border="0">
             <tr>
-                <td style="line-height: 15px; width: 5%;">
+                <td style="width: 5%;">
                     14.
                 </td>
-                <td style="line-height: 15px; width: 95%;">
+                <td style="width: 95%;">
                     A határozatlan időre kötött szívességi földhasználati szerződés 60 napos felmondási idővel mondható fel. A határozott időtartamú szívességi földhasználati szerződés azonnali hatályú felmondással való megszüntetésére – a szerződő felek eltérő megállapodása hiányában - a haszonbérleti szerződés azonnali hatályú felmondására vonatkozó szabályok az irányadók.
                 </td>
             </tr>
         </table>
         EOD;
         $pdf->writeHTML($html, false, false, false, false);
+        $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
 
         $html = <<<EOD
-        <p style="line-height: 20px;">
+        <p style="line-height: 10px;">
             &nbsp;
         </p>
         <table cellspacing="0" cellpadding="0" border="0">
@@ -710,9 +750,10 @@ class Szivessegi
         </table>
         EOD;
         $pdf->writeHTML($html, false, false, false, false);
+        $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
 
         $html = <<<EOD
-        <p style="line-height: 40px;">
+        <p style="line-height: 10px;">
             &nbsp;
         </p>
         <table cellspacing="0" cellpadding="0" border="0">
@@ -737,17 +778,19 @@ class Szivessegi
         </p>
         EOD;
         $pdf->writeHTML($html, false, false, false, false);
+        $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
 
         $html = <<<EOD
         <p style="line-height: 10px;">
             &nbsp;
         </p>
-        <p>
+        <p style="line-height: 15px;">
             Jelen szívességi földhasználati szerződést megkötő felek, mint szerződéses akaratuknak mindben
              megegyezőt elolvasás és értelmezés után helyben jóváhagyólag írják alá.
         </p>
         EOD;
         $pdf->writeHTML($html, false, false, false, false);
+        $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
 
         $html = <<<EOD
         <p style="line-height: 30px;">
@@ -760,6 +803,7 @@ class Szivessegi
         $pdf->writeHTML($html, false, false, false, false);
 
         $pdf->AddPage();
+        $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
 
         $html = <<<EOD
         <p style="line-height: 30px;">
