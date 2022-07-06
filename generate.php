@@ -32,7 +32,7 @@ class Szivessegi
         $pdf->setFontSubsetting(true);
 
         $pdf->setDefaultMonospacedFont('dejavusans');
-        $pdf->setMargins(0, 10, 0);
+        $pdf->setMargins(0, 0, 0);
         $pdf->AddPage('', '', true, false);
         $dejavusansb = $pdf->AddFont("dejavusansb");
         if(!$dejavusansb)
@@ -48,23 +48,25 @@ class Szivessegi
           ];
         $pdf->setHtmlVSpace($tagvs); */
         $pdf->setFont('dejavusans', '', 10.5, '', false);
-        // $pdf->setCellMargins(0, 0, 0, 0);
+        $pdf->setCellMargins(0, 0, 0, 0);
         
         $data = new DataSzivessegi();
         $data = $this->data;
         $data->hVevoHrsz = !empty($data->hVevoHrsz) ? "hrsz: ".$data->hVevoHrsz : "";
 
         $html = <<<EOD
-        <div style="text-align: center;">
-          <img src="assets/nakLogoForPDF.svg" />
+        <div style="text-align: left;">
+            <img src="assets/logonewpdf.jpg" />
         </div>
-        <p style="line-height: 1px;">
-            &nbsp;
-        </p>
-        <div style="line-height: 1px; background-color: #dddddd;"> </div>
-        <p style="line-height: 5px;">
-            &nbsp;
-        </p>
+        EOD;
+
+        $pdf->writeHTML($html, true, false, false, false);
+        $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+        $pdf->setFont('dejavusans', '', 9.5, '', true);
+
+        $pdf->SetXY(0, 25);
+
+        $html = <<<EOD
         <h2 style="text-align: center;">
             SZÍVESSÉGI FÖLDHASZNÁLATI SZERZŐDÉS
         </h2>
