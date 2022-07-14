@@ -40,13 +40,7 @@ class Szivessegi
             var_dump($dejavusansb);
             return;
         }
-        /* $tagvs = [
-            'p' => [
-              ['h'=>0.1, ],
-              ['h'=>0.1, ]
-            ]
-          ];
-        $pdf->setHtmlVSpace($tagvs); */
+        
         $pdf->setFont('dejavusans', '', 10.5, '', false);
         $pdf->setCellMargins(0, 0, 0, 0);
         
