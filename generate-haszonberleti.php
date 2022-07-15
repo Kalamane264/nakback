@@ -454,6 +454,17 @@ class Szivessegi
         $pdf->writeHTML($html, false, false, false, false);
         $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
 
+        $harmaspont =  <<<EOD
+        A szerződő felek megállapodnak abban, hogy a haszonbér pénzben kerül teljesítésre.
+        EOD;
+
+        if($data->dijMegallapitasModja == "3")
+        {
+            $harmaspont =  <<<EOD
+            A szerződő felek megállapodnak abban, hogy a haszonbér természetben kerül teljesítésre.
+            EOD;
+        }
+
         $html = <<<EOD
         <p style="line-height: 10px;">
             &nbsp;
@@ -464,14 +475,37 @@ class Szivessegi
                     3.
                 </td>
                 <td style="width: 95%;">
-                    Felek büntetőjogi felelősségük tudatában kijelentik, hogy a Földforgalmi tv. 5. § 13. pontja szerinti 
-                    közeli hozzátartozónak minősülnek, mert közöttük rokoni kapcsolat áll fenn ($data->hasznalatKozeliHozzatart).
+                    $harmaspont
                 </td>
             </tr>
         </table>
         EOD;
         $pdf->writeHTML($html, false, false, false, false);
         $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+
+        $negyespont = "";
+
+        if($data->dijMegallapitasModja == "3")
+        {
+            $negyespont =  <<<EOD
+            Haszonbérbe vevő köteles az 1. pontban megjelölt termőföld használati jogának átengedése fejében évente a 
+            haszonbérbe adó részére a megállapodott természetbeni haszonbér megfizetésére, 
+            amely $data->dijMegallapitasModjaEspedig.
+            Az utolsó bérleti évben évben haszonbérbe adó $data->milyenBerletiDijraJogosult haszonbérre jogosult. 
+            EOD;
+        }
+        else
+        {
+            $negyespont =  <<<EOD
+            Haszonbérbe vevő köteles az 1. pontban megjelölt termőföld használati jogának átengedése fejében évente a 
+            haszonbérbe adó részére hektáronként 
+            $data->evesBerletiDij,- Ft-ot azaz, $data->evesBerletiDijAzaz forintot, legkésőbb tárgyév június hó 01. napjáig a 
+            haszonbérbe adó $data->berbeAdoBankszamlaszama számú bankszámlaszámára banki
+            átutalással megfizetni. Az utolsó bérleti évben a haszonbérbe adó teljes évi bérleti díjra jogosult, 
+            melynek összege $data->evesBerletiDij,- Ft azaz, $data->evesBerletiDijAzaz forint, melyet a haszonbérlő köteles a 
+            szerződés lejártának napjáig banki átutalással teljesíteni.
+            EOD;
+        }
 
         $html = <<<EOD
         <p style="line-height: 10px;">
@@ -483,13 +517,35 @@ class Szivessegi
                     4.
                 </td>
                 <td style="width: 95%;">
-                    A földhasználatba adó a föld használatát a földhasználatba vevőnek ingyenesen engedi át, ezért a szerződő felek földhasználati díjat nem állapítanak meg.
+                    $negyespont
                 </td>
             </tr>
         </table>
         EOD;
         $pdf->writeHTML($html, false, false, false, false);
         $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+
+        $otospont = "";
+        if($data->vanMezeiLeltar == "1")
+        {
+            $otospont =  <<<EOD
+            A szerződő felek kijelentik, hogy a szerződés tárgyát képező ingatlan(ok) vonatkozásában
+            mezei leltár ellenértéke 
+            $data->leltarEllenerteke,- Ft azaz, $data->leltarEllenertekeAzaz forint, 
+            amire a haszonbérbe vevő igényt tart, 
+            amennyiben az ingatlan(ok) vonatkozásában haszonbérleti joga az előhaszonbérleti rangsorban őt megelőző 
+            személyhez, vagy szervezethez kerülne. A mezei leltár ellenértékét a haszonbérleti szerződés mezőgazdasági 
+            igazgatási szervnél történő bejegyzését követő nyolc napon belül egy összegben kell megfizetni a haszonbérbe vevő
+            $data->berbeVevoBankszamlaszama számú bankszámlaszámára.
+            EOD;
+        }
+        else
+        {
+            $otospont =  <<<EOD
+            A szerződő felek kijelentik, hogy a szerződés tárgyát képező ingatlan(ok) vonatkozásában
+            mezei leltárt nem állapítanak meg. 
+            EOD;
+        }
 
         $html = <<<EOD
         <p style="line-height: 10px;">
@@ -501,15 +557,13 @@ class Szivessegi
                     5.
                 </td>
                 <td style="width: 95%;">
-                    A földhasználatba vevő köteles az 1. pontban megjelölt ingatlant a jó gazda gondosságával művelési ágának megfelelően művelni és folyamatosan gondoskodni a termőképességének fenntartásáról. Az ingatlan használatának jogát sem visszterhes, sem ingyenes szerződésben harmadik fél részére nem engedheti át.
+                    $otospont
                 </td>
             </tr>
         </table>
         EOD;
         $pdf->writeHTML($html, false, false, false, false);
         $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
-
-        $ev_ho_nap = Grammar::ev_ho_nap($data->hasznalatBirtokbavetelIdopont);
 
         $html = <<<EOD
         <p style="line-height: 10px;">
@@ -521,9 +575,7 @@ class Szivessegi
                     6.
                 </td>
                 <td style="width: 95%;">
-                A szerződő felek megállapodnak abban, hogy a jelen szerződés 1. pontjában megjelölt ingatlant 
-                $ev_ho_nap 
-                napjától a földhasználó birtokba veszi és a szerződés időtartama alatt szedi annak hasznait, viseli terheit.
+                A termőföld (ek)re vonatkozó földadót és egyéb közterheket a haszonbérbe vevő viseli a szerződés fennállásának idejére.
                 </td>
             </tr>
         </table>
@@ -541,9 +593,8 @@ class Szivessegi
                     7.
                 </td>
                 <td style="width: 95%;">
-                    Jelen szívességi földhasználati szerződés megszűnése esetén a földrészletet
-                    - különös tekintettel a gyommentességre - olyan állapotban kell visszaadni a tulajdonosnak, 
-                    hogy azon a rendeltetésszerű gazdálkodás azonnal folytatható legyen.
+                A szerződő felek kijelentik, hogy a földhasználathoz kapcsolódó vagyoni értékű jog –
+                különösen a területalapú támogatás igénybevételéhez fűződő jogosultság – a haszonbérleti szerződés fennállása alatt a haszonbérbe vevőt, annak megszűnésével a termőföld tulajdonosát illeti meg, továbbá megállapodnak abban, hogy haszonbérbe adó a terület vadászati hasznosításának jogával kapcsolatos döntési jogkört haszonbérlőnek a szerződés időtartamára átengedi.
                 </td>
             </tr>
         </table>
@@ -561,16 +612,18 @@ class Szivessegi
                     8.
                 </td>
                 <td style="width: 95%;">
-                    Földhasználatba vevő kijelenti, hogy rendelkezik a fentiek szerinti termőföld megműveléséhez 
-                    szükséges jogi és személyi feltételekkel és azokat a szerződés hatálya alatt is fenntartja. A földhasználatba 
-                    vevő jelen szerződés aláírásával kijelenti, hogy személyében megfelel a Földforgalmi tv. 5. § 7. pontjában foglalt
-                    földműves fogalmának.
+                A haszonbérbe vevő köteles az 1. pontban megjelölt ingatlan(oka)t a jó gazda gondosságával művelési ágának megfelelően művelni és folyamatosan gondoskodni a termőképességének fenntartásáról. E körben köteles betartani a természetvédelmi, környezetvédelmi és talajvédelmi előírásokat. Az ingatlan használatának jogát sem visszterhes, sem ingyenes szerződésben harmadik fél részére nem engedheti át, kivéve a haszonbérbeadó kizárólagos hozzájárulásával a mező- és erdőgazdasági földek 
+                forgalmáról szóló 2013. évi CXXII. törvénnyel összefüggő egyes rendelkezésekről
+                és átmeneti szabályokról szóló 2013. évi CCXII törvény (a továbbiakban: Fétv.) 64.-65.§-ban az alhaszonbérletre vonatkozó eseteket, továbbá a haszonbérelt területen épületet vagy egyéb építményt nem létesíthet, azt csak mezőgazdasági művelés céljára használhatja. A haszonbérbe vevő köteles gondoskodni a tápanyag visszapótlásról, a talaj szükséges megműveléséről, a gyomírtásról.
                 </td>
             </tr>
         </table>
         EOD;
         $pdf->writeHTML($html, false, false, false, false);
         $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+
+        $hasznalatbaVetelKezdoIdopont = Grammar::ev_ho_nap($data->hasznalatbaVetelKezdoIdopont);
+        $hasznalatVege = Grammar::ev_ho_nap($data->hasznalatVege);
 
         $html = <<<EOD
         <p style="line-height: 10px;">
@@ -582,24 +635,9 @@ class Szivessegi
                     9.
                 </td>
                 <td style="width: 95%;">
-                    Földhasználatba vevő a Földforgalmi tv. 42. §-a alapján az alábbiak szerint nyilatkozom:
-                    <ul>
-                        <li>
-                            A földhasználati jog megszerzésére jogosultsággal rendelkezem, megfelelek a 40. § (1) – (4) bekezdésben, valamint a 41. §-ban foglalt feltételeknek.
-                        </li>
-                        <li>
-                            A szívességi földhasználati szerződésben megjelölt föld használatát másnak nem engedem át, azt magam használom.
-                        </li>
-                        <li>
-                            A szívességi földhasználati szerződés időtartama alatt az 1. pontban leírt földre vonatkozóan eleget teszek földhasznosítási kötelezettségemnek.
-                        </li>
-                        <li>
-                            Nincs jogerősen megállapított és fennálló földhasználati díjtartozásom.
-                        </li>
-                        <li>
-                            A szívességi földhasználati szerződés tárgyát képező föld használatba vételével a már birtokomban és használatomban lévő földterületek nagysága nem haladja meg a Földforgalmi tv. 16. § (2) – (5) bekezdések szerinti birtokmaximumot.
-                        </li>
-                    </ul>
+                A szerződő felek megállapodnak abban, hogy a jelen szerződés 1. pontjában megjelölt
+                ingatlan(oka)t $hasznalatbaVetelKezdoIdopont napjától a haszonbérbe vevő használja. 
+                A használat vége: $hasznalatVege nap.
                 </td>
             </tr>
         </table>
@@ -617,7 +655,7 @@ class Szivessegi
                     10.
                 </td>
                 <td style="width: 95%;">
-                    Földhasználatba vevő kijelenti, hogy a szívességi földhasználati szerződés tárgyát képező ingatlan elhelyezkedését, természetbeni határait ismeri.
+                A haszonbérbe vevő nyilatkozik, hogy olyan természetes személy, aki megfelel a Földforgalmi tv. 40. § (1) bekezdésében foglalt feltételeknek. Haszonbérlő kötelezettséget vállal arra, hogy a haszonbérleti szerződés hatályának teljes tartama alatt megfelel a földműves jogállásnak. Vállalja, hogy a föld használatát másnak nem engedi át, azt rendeltetésszerűen maga használja és ennek során eleget tesz a földhasznosítási kötelezettségének.
                 </td>
             </tr>
         </table>
@@ -635,7 +673,7 @@ class Szivessegi
                     11.
                 </td>
                 <td style="width: 95%;">
-                    A jelen szívességi földhasználati szerződésben foglalt termőföld területet terhelő közterheket a földhasználatba vevő köteles megfizetni. 
+                A haszonbérbe vevő nyilatkozik, hogy nincs jogerősen megállapított és fennálló földhasználati díj- vagy egyéb tartozása.
                 </td>
             </tr>
         </table>
@@ -653,7 +691,7 @@ class Szivessegi
                     12.
                 </td>
                 <td style="width: 95%;">
-                    A földhasználókat megillető és jogszabály szerint járó támogatásokat a földhasználatba vevő jogosult igénybe venni.
+                A haszonbérbe vevő nyilatkozik, hogy a használati jog megszerzését megelőző 5 éven belül nem állapították meg, hogy a szerzési korlátozások megkerülésére irányuló jogügyletet kötött, továbbá, hogy bármilyen jogcímen használatában, birtokában lévő termőföld – a most megszerezni kívánt területtel együtt – sem éri el az 1200 ha-t, a tulajdona pedig a 300 ha-t.
                 </td>
             </tr>
         </table>
@@ -671,30 +709,38 @@ class Szivessegi
                     13.
                 </td>
                 <td style="width: 95%;">
-                    A szerződő felek megállapodnak abban, hogy jelen szívességi földhasználati szerződés megszűnik
-                    <ul>
-                        <li>
-                            a határozott időtartamú szívességi földhasználati szerződés esetén az időtartam lejártával, a lejárat napján,
-                        </li>
-                        <li>
-                            határozatlan időtartamú szerződés esetén közös megegyezéssel, a szerződő felek által meghatározott napon,
-                        </li>
-                        <li>
-                            felmondással,
-                        </li>
-                        <li>
-                            azonnali hatályú felmondással,
-                        </li>
-                        <li>
-                            a határozatlan időtartamú szerződés esetén a szerződő felek közötti közeli hozzátartozói viszony bármilyen okból történő megszűnésével, e tényhelyzet beálltát követő 30. napon.
-                        </li>
-                    </ul>
+                A haszonbérbe vevő elfogadja, és tudomásul veszi, hogy ha utólagos ellenőrzés során
+                jogerősen megállapításra kerül az 12. pont szerinti nyilatkozatának valótlansága, úgy az a Büntető Törvénykönyv (2012. évi C. törvény) szerinti büntetőjogi felelősségre vonását, valamint a haszonbérleti szerződés tárgyát képező föld használata után a jogsértő állapot fennállásának időtartama alatt, a jogsértéssel érintett földterület után a részére folyósított költségvetési vagy európai uniós támogatásnak megfelelő összegű pénzösszeg visszafizetését vonja maga után.
                 </td>
             </tr>
         </table>
         EOD;
         $pdf->writeHTML($html, false, false, false, false);
         $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+
+        $tizennegyespont = "";
+
+        if($data->elohaszonberletiJog)
+        {
+            $tizennegyespont = <<<EOD
+            A haszonbérbe vevő kijelenti, hogy a Földforgalmi tv. 46. §
+            <ul>
+                <li>
+                    (1) bekezdés b) pontja szerint, mint olyan földművest, aki helyben lakó szomszédnak minősül
+                </li>
+                <li>
+                    (1) bekezdés d) pontja szerint, mint olyan földművest, akinek a lakóhelye vagy a mezőgazdasági üzemközpontja legalább 3 éve azon a településen van, amelynek közigazgatási határa a haszonbérlet tárgyát képező föld fekvése szerinti település közigazgatási határától közúton vagy közforgalom elől el nem zárt magánúton legfeljebb 20 km távolságra van    
+                </li>
+                <li>
+                    (3) bekezdés a) pontja szerint, mint a föld fekvése szerinti településen az előhaszonbérleti joga gyakorlását megelőzően legalább 3 éve állattartó telepet üzemeltető azon helyben lakó földművest, aki haszonbérletének a célja az állattartáshoz szükséges és azzal arányban álló takarmányszükséglet biztosítása és rendelkezik az e törvény végrehajtására kiadott rendeletben meghatározott állatsűrűséggel
+                </li>
+            </ul>
+            EOD;
+        }
+        else
+        {
+            $tizennegyespont = "A haszonbérbe vevő kijelenti, hogy őt a Földforgalmi tv. 46. § alapján előhaszonbérleti jog nem illeti meg.";
+        }
 
         $html = <<<EOD
         <p style="line-height: 10px;">
@@ -706,13 +752,31 @@ class Szivessegi
                     14.
                 </td>
                 <td style="width: 95%;">
-                    A határozatlan időre kötött szívességi földhasználati szerződés 60 napos felmondási idővel mondható fel. A határozott időtartamú szívességi földhasználati szerződés azonnali hatályú felmondással való megszüntetésére – a szerződő felek eltérő megállapodása hiányában - a haszonbérleti szerződés azonnali hatályú felmondására vonatkozó szabályok az irányadók.
+                    $tizennegyespont
                 </td>
             </tr>
         </table>
         EOD;
         $pdf->writeHTML($html, false, false, false, false);
         $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+
+        $tizenotospont = "";
+
+        if($data->hVevoStatus != "0")
+        {
+            $tizenotospont = <<<EOD
+            A haszonbérbe vevő kijelenti, hogy a Földforgalmi tv. 46. § (4) bekezdés
+            <ul>
+                <li>
+                $data->hVevoStatus
+                </li>
+            </ul>
+            EOD;
+        }
+        else
+        {
+            $tizenotospont = "A haszonbérbe vevő kijelenti, hogy a Földforgalmi tv. 46. § (4) bekezdése nem vonatkozik rá.";
+        }
 
         $html = <<<EOD
         <p style="line-height: 10px;">
@@ -724,7 +788,7 @@ class Szivessegi
                     15.
                 </td>
                 <td style="width: 95%;">
-                    A jelen szívességi földhasználati szerződésben nem szabályozott kérdésekben a Polgári Törvénykönyvről szóló 2013. évi V. törvény, továbbá Földforgalmi tv., valamint a mező- és erdőgazdasági földek forgalmáról szóló 2013. évi CXXII. törvénnyel összefüggő egyes rendelkezésekről és átmeneti szabályokról szóló 2013. évi CCXII. törvény szívességi földhasználatra vonatkozó rendelkezései az irányadóak.
+                    $tizenotospont
                 </td>
             </tr>
         </table>
@@ -742,20 +806,11 @@ class Szivessegi
                     16.
                 </td>
                 <td style="width: 95%;">
-                    A szerződő felek tudomásul veszik, hogy jelen szívességi földhasználati szerződés érvényességének a szívességi használatba vevő földhasználatának, földhasználati nyilvántartásban történő bejegyzésének előfeltétele a szerződés mezőgazdasági igazgatási szerv részéről történő jóváhagyása. Jelen szívességi földhasználati szerződést az aláírástól számított 8 napon belül a földhasználatba vevő köteles mezőgazdasági igazgatási szervhez jóváhagyás céljából benyújtani.
+                Szerződő felek tudomásul veszik, hogy az 1. pontban írt ingatlan(ok) vonatkozásában a
+                Földforgalmi tv. 46. §-ban foglalt személyeknek előhaszonbérleti joga áll fenn. Az előhaszonbérleti jogra jogosultak tájékoztatása érdekében a haszonbérbe adó köteles e szerződést a Földforgalmi tv. 49. §-ban foglaltaknak megfelelően a szerződő felek aláírását követően 8 napon belül a mezőgazdasági igazgatási szerv részére meg küldeni jóváhagyás céljából. Ha a mezőgazdasági igazgatási szerv megállapítja a szerződés közzétételre való alkalmasságát, hivatalból rendeli el a haszonbérleti szerződés közzétételét.
                 </td>
             </tr>
         </table>
-        EOD;
-        $pdf->writeHTML($html, false, false, false, false);
-
-        $html = <<<EOD
-        <p style="line-height: 10px;">
-            &nbsp;
-        </p>
-        <p>
-            Kijelentem, hogy jelen okiratban foglaltak a valóságnak megfelelnek.
-        </p>
         EOD;
         $pdf->writeHTML($html, false, false, false, false);
         $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
@@ -764,9 +819,216 @@ class Szivessegi
         <p style="line-height: 10px;">
             &nbsp;
         </p>
-        <p style="line-height: 15px;">
-            Jelen szívességi földhasználati szerződést megkötő felek, mint szerződéses akaratuknak mindben
-             megegyezőt elolvasás és értelmezés után helyben jóváhagyólag írják alá.
+        <table cellspacing="0" cellpadding="0" border="0" style="line-height: 15px;">
+            <tr>
+                <td style="width: 5%;">
+                    17.
+                </td>
+                <td style="width: 95%;">
+                Haszonbérbe vevő kijelenti, hogy a haszonbérleti szerződés tárgyát képező ingatlan(ok)
+                elhelyezkedését, természetbeni határait ismeri.
+                </td>
+            </tr>
+        </table>
+        EOD;
+        $pdf->writeHTML($html, false, false, false, false);
+        $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+
+        $html = <<<EOD
+        <p style="line-height: 10px;">
+            &nbsp;
+        </p>
+        <table cellspacing="0" cellpadding="0" border="0" style="line-height: 15px;">
+            <tr>
+                <td style="width: 5%;">
+                    18.
+                </td>
+                <td style="width: 95%;">
+                    A szerződő felek tudomással bírnak arról, hogy jelen haszonbérleti szerződés megszűnik
+                    <ul>
+                        <li>
+                            a szerződésben meghatározott időtartam lejártával, a lejárat napján;
+                        </li>
+                        <li>
+                            közös megegyezéssel, a szerződő felek által meghatározott napon;
+                        </li>
+                        <li>
+                            a haszonbérbe vevő természetes személy halálával, feltéve, hogy az örökösök a Polgári
+                            Törvénykönyvről szóló 2013. évi V. törvényben (a továbbiakban: Ptk.) meghatározott felmondási jogukat az ott meghatározott határidőben gyakorolják;
+                        </li>
+                        <li>
+                            azonnali hatályú felmondással,
+                        </li>
+                        <li>
+                            a Fétv. 60. §-ban meghatározott felmondással;
+                        </li>
+                        <li>
+                            ha a föld természeti erő közvetlen behatása következtében egészben vagy jelentős részben a haszonbérleti szerződés szerinti hasznosításra tartósan alkalmatlanná válik.
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+        EOD;
+        $pdf->writeHTML($html, false, false, false, false);
+        $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+
+        $html = <<<EOD
+        <p style="line-height: 10px;">
+            &nbsp;
+        </p>
+        <table cellspacing="0" cellpadding="0" border="0" style="line-height: 15px;">
+            <tr>
+                <td style="width: 5%;">
+                    19.
+                </td>
+                <td style="width: 95%;">
+                    A haszonbérbe adó a szerződést azonnali hatállyal jogosult felmondani, ha a haszonbérbe
+                    vevő
+                    <ul>
+                        <li>
+                            az írásban közölt felhívás ellenére nem tesz eleget a hasznosítási kötelezettségének vagy olyan gazdálkodást folytat, amely veszélyezteti a föld termőképességét,
+                        </li>
+                        <li>
+                            a haszonbérbe adó hozzájárulása nélkül vagy attól eltérően a föld használatát másnak átengedte, más célra hasznosította, a földművelési ágát megváltoztatta vagy a földet a termőföld védelméről szóló törvényben meghatározottak szerint más célra  hasznosította,
+                        </li>
+                        <li>
+                            a természetvédelmi jogszabályok vagy a természetvédelmi hatóság jogszabály alapján hozott előírásaitól eltérő, illetőleg a természeti terület állagát vagy állapotát kedvezőtlenül befolyásoló tevékenységet folytat, továbbá, ha a természeti értékek fennmaradását bármely módon veszélyezteti,
+                        </li>
+                        <li>
+                            a haszonbért vagy a földdel kapcsolatos terheket a lejárat után, írásban közölt felszólítás ellenére, a felszólítás közlésétől számított 15 napon belül sem fizeti meg.
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+        EOD;
+        $pdf->writeHTML($html, false, false, false, false);
+        $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+
+        $html = <<<EOD
+        <p style="line-height: 10px;">
+            &nbsp;
+        </p>
+        <table cellspacing="0" cellpadding="0" border="0" style="line-height: 15px;">
+            <tr>
+                <td style="width: 5%;">
+                    20.
+                </td>
+                <td style="width: 95%;">
+                A haszonbérbe vevő azonnali hatállyal jogosult felmondani a szerződést, ha az egészségi
+                állapota oly mértékben romlik meg, vagy családi és életkörülményeiben olyan tartós változás következik be, amely a haszonbérletből eredő kötelezettségeinek teljesítését akadályozza vagy azt jelentősen megnehezíti.
+                </td>
+            </tr>
+        </table>
+        EOD;
+        $pdf->writeHTML($html, false, false, false, false);
+        $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+
+        $html = <<<EOD
+        <p style="line-height: 10px;">
+            &nbsp;
+        </p>
+        <table cellspacing="0" cellpadding="0" border="0" style="line-height: 15px;">
+            <tr>
+                <td style="width: 5%;">
+                    21.
+                </td>
+                <td style="width: 95%;">
+                A haszonbérleti szerződés megszűnésekor a szerződő felek egymással kötelesek elszámolni. A haszonbérleti szerződés megszűnésekor a haszonbérbe vevő az általa létesített berendezési és felszerelési tárgyakat a területről elviheti.
+                </td>
+            </tr>
+        </table>
+        EOD;
+        $pdf->writeHTML($html, false, false, false, false);
+        $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+
+        $html = <<<EOD
+        <p style="line-height: 10px;">
+            &nbsp;
+        </p>
+        <table cellspacing="0" cellpadding="0" border="0" style="line-height: 15px;">
+            <tr>
+                <td style="width: 5%;">
+                    22.
+                </td>
+                <td style="width: 95%;">
+                A szerződő felek tudomásul veszik, hogy jelen haszonbérleti szerződés érvényességének,
+                földhasználati nyilvántartásban történő bejegyzésének előfeltétele a szerződés mezőgazdasági igazgatási szerv részéről történő jóváhagyása.
+                </td>
+            </tr>
+        </table>
+        EOD;
+        $pdf->writeHTML($html, false, false, false, false);
+        $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+
+        $html = <<<EOD
+        <p style="line-height: 10px;">
+            &nbsp;
+        </p>
+        <table cellspacing="0" cellpadding="0" border="0" style="line-height: 15px;">
+            <tr>
+                <td style="width: 5%;">
+                    23.
+                </td>
+                <td style="width: 95%;">
+                A jelen haszonbérleti szerződésben nem szabályozott kérdésekben a Ptk., továbbá
+                Földforgalmi tv., valamint a Fétv. földhasználatra vonatkozó rendelkezései az irányadóak.
+                </td>
+            </tr>
+        </table>
+        EOD;
+        $pdf->writeHTML($html, false, false, false, false);
+        $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+
+        $html = <<<EOD
+        <p style="line-height: 10px;">
+            &nbsp;
+        </p>
+        <table cellspacing="0" cellpadding="0" border="0" style="line-height: 15px;">
+            <tr>
+                <td style="width: 5%;">
+                    24.
+                </td>
+                <td style="width: 95%;">
+                A szerződő felek rögzítik, hogy cselekvőképes magyar állampolgárok, szerződéskötési
+                képességük nem korlátozott.
+                </td>
+            </tr>
+        </table>
+        EOD;
+        $pdf->writeHTML($html, false, false, false, false);
+        $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+
+        $html = <<<EOD
+        <p style="line-height: 10px;">
+            &nbsp;
+        </p>
+        <table cellspacing="0" cellpadding="0" border="0" style="line-height: 15px;">
+            <tr>
+                <td style="width: 5%;">
+                    25.
+                </td>
+                <td style="width: 95%;">
+                A szerződő felek kijelentik, hogy a szerződéssel kapcsolatban esetlegesen keletkező
+                jogvitáikat elsősorban egyeztetés útján rendezik. Amennyiben az egyeztetés sikertelen, úgy erre az esetre alávetik magukat az ingatlan fekvése szerinti illetékes járásbíróság eljárásának.
+                </td>
+            </tr>
+        </table>
+        EOD;
+        $pdf->writeHTML($html, false, false, false, false);
+        $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+
+
+
+
+
+        $html = <<<EOD
+        <p style="line-height: 10px;">
+            &nbsp;
+        </p>
+        <p>
+            Jelen haszonbérleti szerződést megkötő felek, mint szerződéses akaratuknak mindben megegyezőt elolvasás és értelmezés után helyben jóváhagyólag írják alá.
         </p>
         EOD;
         $pdf->writeHTML($html, false, false, false, false);
@@ -794,12 +1056,12 @@ class Szivessegi
                 <td style="width: 50%; text-align: center;">
                     _______________________________________
                     <br>
-                    földhasználatba adó
+                    haszonbérbe adó
                 </td>
                 <td style="text-align: center;">
                     _______________________________________
                     <br>
-                    földhasználatba vevő
+                    haszonbérbe vevő
                 </td>
             </tr>
         </table>
