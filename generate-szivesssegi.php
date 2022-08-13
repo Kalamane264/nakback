@@ -68,7 +68,7 @@ class Szivessegi
 
         $pdf->writeHTML($html, false, false, false, false);
         $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
-        $pdf->setFont('dejavusans', '', 9.5, '', true);
+        $pdf->setFont('dejavusans', '', 9.5, '',true);
 
         $html = <<<EOD
         <p style="line-height: 20px;">
@@ -123,7 +123,8 @@ class Szivessegi
                     Lakcím: 
                 </td>
                 <td style="font-family: dejavusansb;">
-                    $data->postalCode $data->settlement, <br>$data->kozterNev $data->kozterTipus <br>$data->hazSzam
+                $data->postalCode $data->settlement,
+$data->kozterNev $data->kozterTipus $data->hazSzam $data->emeletAjto
                 </td>
             </tr>
             <tr>
@@ -283,8 +284,14 @@ class Szivessegi
                 </td>
             </tr>
         </table>
-        EOD;
+EOD;
 
+        //$pdf->setCellMargins(0.01, 0.01, 0.01, 0.01);
+        //$html = str_replace(PHP_EOL, '', $html);
+        //$html = preg_replace('/{nbr}[\r\n]/', 'likjzgouzinopuj', $html);
+        //$html = preg_replace("/\t+/", "", $html);
+        //$html = preg_replace("/\r|\n/", "zzzzzzzzzzzzzzz", $html);
+        //$html = preg_replace('/Születési/', 'csecccs', $html);
         $pdf->writeHTML($html, false, false, false, false);
         $pdf->setMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
         $html = "";
