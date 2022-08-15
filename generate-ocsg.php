@@ -291,6 +291,26 @@ EOD;
 EOD;
           }
 
+          $termeloeszkozokIngo_1_2 = "";
+          foreach($data->ocsgVagyontargyakPageDTOs[$i]->ocsgIngosagDTOs as $ocsgIngosag)
+          {
+            if($ocsgIngosag->vagyontargyTipusa == 3)
+              continue;
+
+            $termeloeszkozokIngo_1_2 .= <<<EOD
+            <tr>
+              <td border="1">$ocsgIngosag->megnevezes
+              </td>
+              <td border="1">$ocsgIngosag->azonosito
+              </td>
+              <td border="1">$ocsgIngosag->rendszam
+              </td>
+              <td border="1">$ocsgIngosag->jogcim
+              </td>
+            </tr>
+EOD;
+          }
+
           $i++;
 
           $vagyoniHjs .= <<<EOD
@@ -322,6 +342,30 @@ EOD;
               </td>
             </tr>
             $termofoldek
+          </table>
+          <p style="line-height: 1px;">
+              &nbsp;
+          </p>
+          <p style="line-height: 16px;"><b>Mezőgazdasági termelőeszközök (ingó vagyontárgyak)
+            </b>
+          </p>
+          <table cellspacing="0" cellpadding="2" border="0" style="line-height: 15px; text-align: center;">
+            <tr>
+              <td>Megnevezés
+              </td>
+              <td>Azonosító
+              </td>
+              <td>Rendszám
+              </td>
+              <td>Jogcím
+              </td>
+            </tr>
+            <tr>
+              <td style="line-height: 4px;">
+                &nbsp;
+              </td>
+            </tr>
+            $termeloeszkozokIngo_1_2
           </table>
 EOD;
         }
