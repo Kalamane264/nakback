@@ -544,7 +544,67 @@ EOD;
         $html .= <<<EOD
         <p style="line-height: 16px;"><b>IV/3.</b> Az őstermelők családi gazdaságának tagjai tudomásul veszik, hogy személyes közreműködésükért díjat nem számíthatnak fel.
         </p>
+        <p style="line-height: 16px;"><b>IV/4.</b> Rendelkezés a nyereség és veszteség tagok közötti megosztásáról
+        </p>
+        <p style="line-height: 16px;">A tagok a közös tevékenység nyereségét és veszteségét egymás között az alábbi arányban osztják fel:
+        </p>
 EOD;
+
+        $reszesedesek = "";
+        
+        foreach($data->ocsTags as $ocsTag)
+        {
+          $reszesedesek .= <<<EOD
+          <tr>
+            <td style="width: 5%;">
+              &nbsp;
+            </td>
+            <td style="width: 25%;">Tag neve:
+            </td>
+            <td>$ocsTag->fullName
+            </td>
+            <td style="width: 35%;">Részesedése:
+            </td>
+            <td>$ocsTag->reszesedese%
+            </td>
+          </tr>
+          <tr>
+            <td style="line-height: 4px;">
+              &nbsp;
+            </td>
+          </tr>
+EOD;
+        }
+
+        $html .= <<<EOD
+        <table cellspacing="0" cellpadding="0" border="0" style="line-height: 15px;">
+            $reszesedesek
+        </table>
+EOD;
+
+        $html .= <<<EOD
+        <p style="line-height: 16px;"><b>IV/5.</b> Az őstermelők családi gazdaságának tagjai rögzítik, hogy ha valamely tag harmadik személlyel kötött szerződés alapján a IV/4. pontban rögzített veszteség viselésének arányától eltérően köteles helytállni, úgy a tagok kötelesek a IV/4. pontban meghatározottak szerint egymással elszámolni.
+        </p>
+        <p style="line-height: 16px;"><b>IV/6.</b> Az őstermelők családi gazdaságának tagjai rögzítik, hogy az őstermelői tevékenységgel előállított termék értékesítése során az őstermelők családi gazdasága tagjának nevében, annak képviselőjeként az őstermelők családi gazdaságának bármelyik tagja vagy alkalmazottja is eljárhat.
+        </p>
+        <p>
+          &nbsp;
+        </p>
+        <h2 style="line-height: 16px;">V. AZ ŐSTERMELŐK CSALÁDI GAZDASÁGÁNAK KÉPVISELŐ SZEMÉLYE 
+        </h2>
+        <p style="line-height: 1px;">
+          &nbsp;
+        </p>
+EOD;
+        if($data->kepviseloOcsgTagIndex)
+        {
+          $kepviselo = $data->ocsTags[$data->kepviseloOcsgTagIndex];
+          $number = $data->kepviseloOcsgTagIndex + 1;
+          $html .= <<<EOD
+          <p style="line-height: 16px;"><b>V/1.</b> Az őstermelők családi gazdaságának tagjai megállapodnak abban, hogy maguk közül őstermelők családi gazdaságának képviselőjévé jelen szerződés I/$number. pontjában szereplő, $kepviselo->fullName  nevű (adóazonosító jel: $kepviselo->adoazonJel) tagot jelölik ki.
+          </p>
+EOD;
+        }
 
 
         $pdf->writeHTML($html, true, false, false, false);
