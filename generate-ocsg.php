@@ -97,8 +97,8 @@ EOD;
         {
           $tagok .= <<<EOD
           <tr>
-            <td style="width: 5%;">
-              $i.
+            <td style="width: 10%;">
+              <b>I/$i.</b>
             </td>
             <td style="width: 45%;">Családi és utónév:
             </td>
@@ -107,7 +107,7 @@ EOD;
           </tr>
           
           <tr>
-            <td style="width: 5%;">
+            <td style="width: 10%;">
               &nbsp;
             </td>
             <td style="width: 45%;">Születési családi és utónév:
@@ -117,7 +117,7 @@ EOD;
           </tr>
 
           <tr>
-            <td style="width: 5%;">
+            <td style="width: 10%;">
               &nbsp;
             </td>
             <td style="width: 45%;">Születési hely, idő:
@@ -127,7 +127,7 @@ EOD;
           </tr>
 
           <tr>
-            <td style="width: 5%;">
+            <td style="width: 10%;">
               &nbsp;
             </td>
             <td style="width: 45%;">Anyja születési családi és utóneve:
@@ -137,7 +137,7 @@ EOD;
           </tr>
 
           <tr>
-            <td style="width: 5%;">
+            <td style="width: 10%;">
               &nbsp;
             </td>
             <td style="width: 45%;">Adóazonosító jel:
@@ -147,7 +147,7 @@ EOD;
           </tr>
 
           <tr>
-            <td style="width: 5%;">
+            <td style="width: 10%;">
               &nbsp;
             </td>
             <td style="width: 45%;">Lakcím:
@@ -157,7 +157,7 @@ EOD;
           </tr>
 
           <tr>
-            <td style="width: 5%;">
+            <td style="width: 10%;">
               &nbsp;
             </td>
             <td style="width: 45%;">Családtag neve, akivel hozzátartozói viszonyát megadja:
@@ -167,7 +167,7 @@ EOD;
           </tr>
 
           <tr>
-            <td style="width: 5%;">
+            <td style="width: 10%;">
               &nbsp;
             </td>
             <td style="width: 45%;">Hozzátartozói minősége:
@@ -250,6 +250,7 @@ EOD;
 EOD;
         $vagyoniHjs = "";
         $i = 0;
+        $counterForPoints = 0;
         foreach($data->ocsTags as $ocsTag)
         {
           $termofoldek = "";
@@ -273,6 +274,9 @@ EOD;
               }
             }
 
+            if(!$muvAgs)
+              continue;
+
             $termofoldek .= <<<EOD
             <tr>
               <td border="1">$vagyoniHj->telepules
@@ -291,86 +295,256 @@ EOD;
 EOD;
           }
 
-          $termeloeszkozokIngo_1_2 = "";
-          foreach($data->ocsgVagyontargyakPageDTOs[$i]->ocsgIngosagDTOs as $ocsgIngosag)
+          $termeloeszkozokIngatlan = "";
+          foreach($data->ocsgVagyontargyakPageDTOs[$i]->ocsgIngatlanDTOs as $ocsgIngatlan)
           {
-            if($ocsgIngosag->vagyontargyTipusa == 3)
+            if(!$ocsgIngatlan->megnevezes)
               continue;
 
-            $termeloeszkozokIngo_1_2 .= <<<EOD
-            <tr>
-              <td border="1">$ocsgIngosag->megnevezes
-              </td>
-              <td border="1">$ocsgIngosag->azonosito
-              </td>
-              <td border="1">$ocsgIngosag->rendszam
-              </td>
-              <td border="1">$ocsgIngosag->jogcim
-              </td>
-            </tr>
+            $termeloeszkozokIngatlan .= <<<EOD
+              <tr>
+                <td border="1">$ocsgIngatlan->megnevezes
+                </td>
+                <td border="1">$ocsgIngatlan->postalCode $ocsgIngatlan->settlement
+                </td>
+                <td border="1">$ocsgIngatlan->kozterNev $ocsgIngatlan->kozterTipus $ocsgIngatlan->hazSzam $ocsgIngatlan->emeletAjto
+                </td>
+                <td border="1">$ocsgIngatlan->jogcim
+                </td>
+              </tr>
 EOD;
+          }
+
+          $termeloeszkozokIngo_1_2 = "";
+          $termeloeszkozokIngo_3 = "";
+          foreach($data->ocsgVagyontargyakPageDTOs[$i]->ocsgIngosagDTOs as $ocsgIngosag)
+          {
+            if(!$ocsgIngosag->vagyontargyTipusa)
+              continue;
+
+            if($ocsgIngosag->vagyontargyTipusa == 3)
+            {
+              $termeloeszkozokIngo_3 .= <<<EOD
+              <tr>
+                <td border="1">$ocsgIngosag->megnevezes
+                </td>
+                <td border="1">$ocsgIngosag->allatallomanyMenyisege
+                </td>
+                <td border="1">$ocsgIngosag->jogcim
+                </td>
+              </tr>
+EOD;
+            }
+            else
+            {
+              $termeloeszkozokIngo_1_2 .= <<<EOD
+              <tr>
+                <td border="1">$ocsgIngosag->megnevezes
+                </td>
+                <td border="1">$ocsgIngosag->azonosito
+                </td>
+                <td border="1">$ocsgIngosag->rendszam
+                </td>
+                <td border="1">$ocsgIngosag->jogcim
+                </td>
+              </tr>
+EOD;
+            }
           }
 
           $i++;
 
-          $vagyoniHjs .= <<<EOD
-          <p style="line-height: 16px;"><b>III/1.$i.</b> Jelen szerződés I./1. pontjában rögzített 
-            $ocsTag->fullName nevű 
-            mezőgazdasági őstermelő tag jelen szerződéssel létrehozásra kerülő őstermelők családi gazdaságában való tagsági jogviszonyának fennállásáig, illetve az általa, mint mezőgazdasági őstermelőként határozott időtartamban használt termőföld esetén a használati jogosultsága fennállásáig, az őstermelők családi gazdaságának rendelkezésére bocsájtja az alábbi ingatlanokat és ingóságokat:
-          </p>
-          <p style="line-height: 16px;"><b>Mező-, erdőgazdasági hasznosítású termőföldek
-            </b>
-          </p>
-          <table cellspacing="0" cellpadding="2" border="0" style="line-height: 15px; text-align: center;">
-            <tr>
-              <td>Település
-              </td>
-              <td>Helyrajzi szám
-              </td>
-              <td>Hektár/m2
-              </td>
-              <td>AK érték
-              </td>
-              <td>Művelési ág
-              </td>
-              <td>Jogcím
-              </td>
-            </tr>
-            <tr>
-              <td style="line-height: 4px;">
-                &nbsp;
-              </td>
-            </tr>
-            $termofoldek
-          </table>
-          <p style="line-height: 1px;">
-              &nbsp;
-          </p>
-          <p style="line-height: 16px;"><b>Mezőgazdasági termelőeszközök (ingó vagyontárgyak)
-            </b>
-          </p>
-          <table cellspacing="0" cellpadding="2" border="0" style="line-height: 15px; text-align: center;">
-            <tr>
-              <td>Megnevezés
-              </td>
-              <td>Azonosító
-              </td>
-              <td>Rendszám
-              </td>
-              <td>Jogcím
-              </td>
-            </tr>
-            <tr>
-              <td style="line-height: 4px;">
-                &nbsp;
-              </td>
-            </tr>
-            $termeloeszkozokIngo_1_2
-          </table>
+          if($termofoldek || $termeloeszkozokIngatlan || $termeloeszkozokIngo_1_2 || $termeloeszkozokIngo_3)
+          {
+            $counterForPoints++;
+            $vagyoniHjs .= <<<EOD
+            <p style="line-height: 16px;"><b>III/1.$counterForPoints.</b> Jelen szerződés I/$i. pontjában rögzített 
+              $ocsTag->fullName nevű 
+              mezőgazdasági őstermelő tag jelen szerződéssel létrehozásra kerülő őstermelők családi gazdaságában való tagsági jogviszonyának fennállásáig, illetve az általa, mint mezőgazdasági őstermelőként határozott időtartamban használt termőföld esetén a használati jogosultsága fennállásáig, az őstermelők családi gazdaságának rendelkezésére bocsájtja az alábbi ingatlanokat és ingóságokat:
+            </p>
 EOD;
+          }
+          
+          if($termofoldek)
+          {
+            $vagyoniHjs .= <<<EOD
+            <p style="line-height: 16px;"><b>Mező-, erdőgazdasági hasznosítású termőföldek
+              </b>
+            </p>
+            <table cellspacing="0" cellpadding="2" border="0" style="line-height: 15px; text-align: center;">
+              <tr>
+                <td>Település
+                </td>
+                <td>Helyrajzi szám
+                </td>
+                <td>Hektár/m2
+                </td>
+                <td>AK érték
+                </td>
+                <td>Művelési ág
+                </td>
+                <td>Jogcím
+                </td>
+              </tr>
+              <tr>
+                <td style="line-height: 4px;">
+                  &nbsp;
+                </td>
+              </tr>
+              $termofoldek
+            </table>
+EOD;
+          }
+          if($termeloeszkozokIngatlan)
+          {
+            $vagyoniHjs .= <<<EOD
+            <p style="line-height: 1px;">
+                &nbsp;
+            </p>
+            <p style="line-height: 16px;"><b>Mezőgazdasági termelőeszközök (ingatlan vagyontárgyak)
+              </b>
+            </p>
+            <table cellspacing="0" cellpadding="2" border="0" style="line-height: 15px; text-align: center;">
+              <tr>
+                <td>Megnevezés
+                </td>
+                <td>Település
+                </td>
+                <td>Cím
+                </td>
+                <td>Jogcím
+                </td>
+              </tr>
+              <tr>
+                <td style="line-height: 4px;">
+                  &nbsp;
+                </td>
+              </tr>
+              $termeloeszkozokIngatlan
+            </table>
+EOD;
+          }
+
+          if($termeloeszkozokIngo_1_2)
+          {
+            $vagyoniHjs .= <<<EOD
+            <p style="line-height: 1px;">
+                &nbsp;
+            </p>
+            <p style="line-height: 16px;"><b>Mezőgazdasági termelőeszközök (ingó vagyontárgyak)
+              </b>
+            </p>
+            <table cellspacing="0" cellpadding="2" border="0" style="line-height: 15px; text-align: center;">
+              <tr>
+                <td>Megnevezés
+                </td>
+                <td>Azonosító
+                </td>
+                <td>Rendszám
+                </td>
+                <td>Jogcím
+                </td>
+              </tr>
+              <tr>
+                <td style="line-height: 4px;">
+                  &nbsp;
+                </td>
+              </tr>
+              $termeloeszkozokIngo_1_2
+            </table>
+EOD;
+          }
+          if($termeloeszkozokIngo_3)
+          {
+            $vagyoniHjs .= <<<EOD
+            <p style="line-height: 1px;">
+                &nbsp;
+            </p>
+            <p style="line-height: 16px;"><b>Mezőgazdasági termelőeszközök (ingó vagyontárgyak - állatállomány)
+              </b>
+            </p>
+            <table cellspacing="0" cellpadding="2" border="0" style="line-height: 15px; text-align: center;">
+              <tr>
+                <td>Megnevezés
+                </td>
+                <td>Darabszám
+                </td>
+                <td>Jogcím
+                </td>
+              </tr>
+              <tr>
+                <td style="line-height: 4px;">
+                  &nbsp;
+                </td>
+              </tr>
+              $termeloeszkozokIngo_3
+            </table>
+EOD;
+          }
+
+          if($termofoldek || $termeloeszkozokIngatlan || $termeloeszkozokIngo_1_2 || $termeloeszkozokIngo_3)
+          {
+            $vagyoniHjs .= <<<EOD
+            <p>
+                &nbsp;
+            </p>
+EOD;
+          }
         }
 
         $html .= $vagyoniHjs;
+
+        $html .= <<<EOD
+        <p style="line-height: 16px;"><b>III/2.</b> A III/1. pontban felsorolt ingatlanokat és ingóságokat az őstermelők családi gazdaságának tagjai a <b><i>jelen szerződés hatályba lépésével egyidejűleg</i></b> az őstermelők családi gazdaságának a rendelkezésére bocsájtják.
+        </p>
+        <p style="line-height: 16px;"><b>III/3.</b> Az őstermelők családi gazdaságának tagjai tudomásul veszik, hogy a teljesítendő vagyoni hozzájárulásuk után kamat, díjazás, vagy más egyéb típusú jövedelem nem jár.
+        </p>
+        <p style="line-height: 16px;"><b>III/4.</b> Az őstermelők családi gazdaságának tagjai rögzítik, hogy ha valamelyik tag nem szolgáltatja a jelen szerződés III. pontjában rögzített hozzájárulást, bármelyik tag követelheti tőle a szerződésszerű teljesítést.
+        </p>
+        <p>
+          &nbsp;
+        </p>
+        <h2 style="line-height: 16px;">IV. A TAGOK SZEMÉLYES KÖZREMŰKÖDÉSE 
+        </h2>
+        <p style="line-height: 16px;"><b>IV/1.</b> Az őstermelők családi gazdaságának tagjai kötelesek az őstermelők családi gazdaságának tevékenységében személyesen közreműködni.
+        </p>
+        <p style="line-height: 16px;"><b>IV/2.</b> A tagok személyes közreműködésének formája:
+        </p>
+EOD;
+        $kozremukodesek = "";
+        
+        $counter = 0;
+        foreach($data->ocsTags as $ocsTag)
+        {
+          $counter++;
+          $kozremukodesek .= <<<EOD
+          <tr>
+            <td style="width: 5%;">
+              &nbsp;
+            </td>
+            <td style="width: 45%;">Jelen szerződés I/$counter. pontjában szereplő tag:
+            </td>
+            <td>$ocsTag->szemelyesKozremukodesFormaja
+            </td>
+          </tr>
+          <tr>
+            <td style="line-height: 4px;">
+              &nbsp;
+            </td>
+          </tr>
+EOD;
+        }
+
+        $html .= <<<EOD
+        <table cellspacing="0" cellpadding="0" border="0" style="line-height: 15px;">
+            $kozremukodesek
+        </table>
+EOD;
+
+        $html .= <<<EOD
+        <p style="line-height: 16px;"><b>IV/3.</b> Az őstermelők családi gazdaságának tagjai tudomásul veszik, hogy személyes közreműködésükért díjat nem számíthatnak fel.
+        </p>
+EOD;
 
 
         $pdf->writeHTML($html, true, false, false, false);
