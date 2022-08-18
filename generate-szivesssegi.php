@@ -61,8 +61,7 @@ class Szivessegi
         $pdf->SetXY(0, 25);
 
         $html = <<<EOD
-        <h2 style="text-align: center;">
-            SZÍVESSÉGI FÖLDHASZNÁLATI SZERZŐDÉS
+        <h2 style="text-align: center;">SZÍVESSÉGI FÖLDHASZNÁLATI SZERZŐDÉS
         </h2>
         EOD;
 
@@ -74,81 +73,62 @@ class Szivessegi
         <p style="line-height: 20px;">
             &nbsp;
         </p>
-        <p style="line-height: 25px;">
-            mely létrejött egyrészről:
+        <p style="line-height: 25px;">mely létrejött egyrészről:
         </p>
         <table cellspacing="0" cellpadding="0" border="0" style="line-height: 20px;">
             <tr>
-                <td>
-                    Név (családi és utónév):
+                <td>Név (családi és utónév):
                 </td>
-                <td style="font-family:dejavusansb;">
-                    $data->fullName
+                <td style="font-family:dejavusansb;">$data->fullName
                 </td>
             </tr>
             <tr>
-                <td>
-                    Születési családi és utónév:
+                <td>Születési családi és utónév:
                 </td>
-                <td style="font-family: dejavusansb;">
-                    $data->fullNameBirth
+                <td style="font-family: dejavusansb;">$data->fullNameBirth
                 </td>
             </tr>
             <tr>
-                <td>
-                Születési hely:
+                <td>Születési hely:
                 </td>
-                <td style="font-family: dejavusansb;">
-                    $data->regionOfBirth
+                <td style="font-family: dejavusansb;">$data->regionOfBirth
                 </td>
             </tr>
             <tr>
-                <td>
-                    Születési idő:
+                <td>Születési idő:
                 </td>
-                <td style="font-family: dejavusansb;">
-                    $data->dateOfBirth
+                <td style="font-family: dejavusansb;">$data->dateOfBirth
                 </td>
             </tr>
             <tr>
-                <td>
-                    Anyja születési neve:
+                <td>Anyja születési neve:
                 </td>
-                <td style="font-family: dejavusansb;">
-                    $data->mothersName
+                <td style="font-family: dejavusansb;">$data->mothersName
                 </td>
             </tr>
             <tr>
-                <td>
-                    Lakcím: 
+                <td>Lakcím: 
                 </td>
-                <td style="font-family: dejavusansb;">
-                $data->postalCode $data->settlement,
+                <td style="font-family: dejavusansb;">$data->postalCode $data->settlement,
 $data->kozterNev $data->kozterTipus $data->hazSzam $data->emeletAjto
                 </td>
             </tr>
             <tr>
-                <td>
-                    Személyi szám:
+                <td>Személyi szám:
                 </td>
-                <td style="font-family: dejavusansb;">
-                    $data->szemSzam
+                <td style="font-family: dejavusansb;">$data->szemSzam
                 </td>
             </tr>
             <tr>
-                <td>
-                    Adóazonosító jel:
+                <td>Adóazonosító jel:
                 </td>
-                <td style="font-family: dejavusansb;">
-                    $data->adoazonJel
+                <td style="font-family: dejavusansb;">$data->adoazonJel
                 </td>
             </tr>
             <tr>
-                <td>
-                    Állampolgárság:
+                <td>Állampolgárság:
                 </td>
-                <td style="font-family: dejavusansb;">
-                    $data->nationality
+                <td style="font-family: dejavusansb;">$data->nationality
                 </td>
             </tr>
         </table>
@@ -165,51 +145,39 @@ $data->kozterNev $data->kozterTipus $data->hazSzam $data->emeletAjto
         </p>
         <table cellspacing="0" cellpadding="0" border="0" style="line-height: 20px;">
             <tr>
-                <td>
-                    Név (családi és utónév):
+                <td>Név (családi és utónév):
                 </td>
-                <td style="font-family:dejavusansb;">
-                    $data->hVevoFullName
+                <td style="font-family:dejavusansb;">$data->hVevoFullName
                 </td>
             </tr>
             <tr>
-                <td>
-                    Születési családi és utónév:
+                <td>Születési családi és utónév:
                 </td>
-                <td style="font-family: dejavusansb;">
-                    $data->hVevoFullNameBirth
+                <td style="font-family: dejavusansb;">$data->hVevoFullNameBirth
                 </td>
             </tr>
             <tr>
-                <td>
-                Születési hely:
+                <td>Születési hely:
                 </td>
-                <td style="font-family: dejavusansb;">
-                    $data->hVevoRegionOfBirth
+                <td style="font-family: dejavusansb;">$data->hVevoRegionOfBirth
                 </td>
             </tr>
             <tr>
-                <td>
-                    Születési idő:
+                <td>Születési idő:
                 </td>
-                <td style="font-family: dejavusansb;">
-                    $data->hVevoDateOfBirth
+                <td style="font-family: dejavusansb;">$data->hVevoDateOfBirth
                 </td>
             </tr>
             <tr>
-                <td>
-                    Anyja születési neve:
+                <td>Anyja születési neve:
                 </td>
-                <td style="font-family: dejavusansb;">
-                    $data->hVevoMothersName
+                <td style="font-family: dejavusansb;">$data->hVevoMothersName
                 </td>
             </tr>
             <tr>
-                <td>
-                    Lakcím: 
+                <td>Lakcím: 
                 </td>
-                <td style="font-family: dejavusansb;">
-                    $data->hVevoPostalCode
+                <td style="font-family: dejavusansb;">$data->hVevoPostalCode
                     $data->hVevoSettlement,
                     <br>
                     $data->hVevoKozterNev
@@ -220,51 +188,40 @@ $data->kozterNev $data->kozterTipus $data->hazSzam $data->emeletAjto
                 </td>
             </tr>
             <tr>
-                <td>
-                    Személyi szám:
+                <td>Személyi szám:
                 </td>
-                <td style="font-family: dejavusansb;">
-                    $data->hVevoSzemSzam
+                <td style="font-family: dejavusansb;">$data->hVevoSzemSzam
                 </td>
             </tr>
             <tr>
-                <td>
-                    Adóazonosító jel:
+                <td>Adóazonosító jel:
                 </td>
-                <td style="font-family: dejavusansb;">
-                    $data->hVevoAdoazonJel
+                <td style="font-family: dejavusansb;">$data->hVevoAdoazonJel
                 </td>
             </tr>
             <tr>
-                <td>
-                    Állampolgárság:
+                <td>Állampolgárság:
                 </td>
-                <td style="font-family: dejavusansb;">
-                    $data->hVevoNationality
+                <td style="font-family: dejavusansb;">$data->hVevoNationality
                 </td>
             </tr>
             <tr>
-                <td>
-                    Földműves nyilvántartási szám:
+                <td>Földműves nyilvántartási szám:
                 </td>
-                <td style="font-family: dejavusansb;">
-                    $data->hVevoFoldmuvesNyilvtartSzam
+                <td style="font-family: dejavusansb;">$data->hVevoFoldmuvesNyilvtartSzam
                 </td>
             </tr>
             <tr>
-                <td>
-                    Kamarai tagsági azonosító szám:
+                <td>Kamarai tagsági azonosító szám:
                 </td>
-                <td style="font-family: dejavusansb;">
-                    $data->hVevoKamaraTagAzonSzam
+                <td style="font-family: dejavusansb;">$data->hVevoKamaraTagAzonSzam
                 </td>
             </tr>
         </table>
         <p style="line-height: 10px;">
             &nbsp;
         </p>
-        <div style="line-height: 15px;"> 
-            mint 
+        <div style="line-height: 15px;">mint 
             <span style="font-family: dejavusansb;">szívességi használatba vevő</span> 
             (a továbbiakban: földhasználatba vevő) 
             együtt a továbbiakban: szerződő felek között a mező- és erdőgazdasági földek forgalmáról szóló 2013. évi CXXII. 
@@ -276,11 +233,9 @@ $data->kozterNev $data->kozterTipus $data->hazSzam $data->emeletAjto
         </p>
         <table cellspacing="0" cellpadding="0" border="0" style="line-height: 15px;">
             <tr>
-                <td style="width: 5%;">
-                    1.
+                <td style="width: 5%;">1.
                 </td>
-                <td style="width: 95%;">
-                    A szerződő felek megállapodnak abban, hogy jelen okirat aláírásával egyidejűleg szívességi földhasználati szerződést kötnek a földhasználatba adó alább szereplő tulajdoni hányadát képező ingatlanok vonatkozásában.
+                <td style="width: 95%;">A szerződő felek megállapodnak abban, hogy jelen okirat aláírásával egyidejűleg szívességi földhasználati szerződést kötnek a földhasználatba adó alább szereplő tulajdoni hányadát képező ingatlanok vonatkozásában.
                 </td>
             </tr>
         </table>
@@ -327,104 +282,85 @@ EOD;
             </p>
             <table cellspacing="0" cellpadding="0" border="0" style="line-height: 20px;">
                 <tr>
-                    <td style="width: 5%;">
-                        $sorsz
+                    <td style="width: 5%;">$sorsz
                     </td>
-                    <td style="width: 60%;">
-                        A föld fekvése szerinti település neve:
+                    <td style="width: 60%;">A föld fekvése szerinti település neve:
                     </td>
-                    <td style="font-family: dejavusansb;">
-                        $foldterSection->foldSettlement
+                    <td style="font-family: dejavusansb;">$foldterSection->foldSettlement
                     </td>
                 </tr>
                 <tr>
                     <td style="width: 5%;">
                         
                     </td>
-                    <td style="width: 60%;">
-                        Fekvése:
+                    <td style="width: 60%;">Fekvése:
                     </td>
-                    <td style="font-family: dejavusansb;">
-                        $foldterSection->foldFekvese
+                    <td style="font-family: dejavusansb;">$foldterSection->foldFekvese
                     </td>
                 </tr>
                 <tr>
                     <td style="width: 5%;">
                         
                     </td>
-                    <td style="width: 60%;">
-                        Helyrajzi száma:
+                    <td style="width: 60%;">Helyrajzi száma:
                     </td>
-                    <td style="font-family: dejavusansb;">
-                        $foldterSection->foldHrsz
+                    <td style="font-family: dejavusansb;">$foldterSection->foldHrsz
                     </td>
                 </tr>
                 <tr>
                     <td style="width: 5%;">
                         
                     </td>
-                    <td style="width: 60%;">
-                        Művelési ága:
+                    <td style="width: 60%;">Művelési ága:
                     </td>
-                    <td style="font-family: dejavusansb;">
-                        $muvelesi_aga
+                    <td style="font-family: dejavusansb;">$muvelesi_aga
                     </td>
                 </tr>
                 <tr>
                     <td style="width: 5%;">
                         
                     </td>
-                    <td style="width: 60%;">
-                        Területe:
+                    <td style="width: 60%;">Területe:
                     </td>
-                    <td style="font-family: dejavusansb;">
-                        $terulete
+                    <td style="font-family: dejavusansb;">$terulete
                     </td>
                 </tr>
                 <tr>
                     <td style="width: 5%;">
                         
                     </td>
-                    <td style="width: 60%;">
-                        Kataszteri tiszta jövedelme (AK):
+                    <td style="width: 60%;">Kataszteri tiszta jövedelme (AK):
                     </td>
-                    <td style="font-family: dejavusansb;">
-                        $foldterSection->foldKataszteriTisztaJovedelemAK
+                    <td style="font-family: dejavusansb;">$foldterSection->foldKataszteriTisztaJovedelemAK
                     </td>
                 </tr>
                 <tr>
                     <td style="width: 5%;">
                         
                     </td>
-                    <td style="width: 60%;">
-                        A használatba adott tulajdoni hányad:
+                    <td style="width: 60%;">A használatba adott tulajdoni hányad:
                     </td>
-                    <td style="font-family: dejavusansb;">
-                        $foldterSection->foldBerbeadottTulajdoniHanyadX / $foldterSection->foldBerbeadottTulajdoniHanyadY
+                    <td style="font-family: dejavusansb;">$foldterSection->foldBerbeadottTulajdoniHanyadX / $foldterSection->foldBerbeadottTulajdoniHanyadY
                     </td>
                 </tr>
                 <tr>
                     <td style="width: 5%;">
                         
                     </td>
-                    <td style="width: 60%;">
-                        Használatba adott tulajdoni hányadnak megfelelő terület:
+                    <td style="width: 60%;">Használatba adott tulajdoni hányadnak megfelelő terület:
                     </td>
-                    <td style="font-family: dejavusansb;">
-                        $teruleteHanyad
+                    <td style="font-family: dejavusansb;">$teruleteHanyad
                     </td>
                 </tr>
                 <tr>
                     <td style="width: 5%;">
                         
                     </td>
-                    <td style="width: 60%;">
-                        A használatba adott tulajdoni hányadnak megfelelő
+                    <td style="width: 60%;">A használatba adott tulajdoni hányadnak megfelelő
                         <br>
                         kataszteri tiszta jövedelem (AK):
                     </td>
-                    <td style="font-family: dejavusansb;">
-                        $foldterSection->foldKataszteriTisztaJovedelemTulajdoniHanyadAK
+                    <td style="font-family: dejavusansb;">$foldterSection->foldKataszteriTisztaJovedelemTulajdoniHanyadAK
                     </td>
                 </tr>
             </table>
@@ -465,11 +401,9 @@ EOD;
         </p>
         <table cellspacing="0" cellpadding="0" border="0" style="line-height: 15px;">
             <tr>
-                <td style="width: 5%;">
-                    2.
+                <td style="width: 5%;">2.
                 </td>
-                <td style="width: 95%;">
-                    $kettespont                    
+                <td style="width: 95%;">$kettespont                    
                 </td>
             </tr>
         </table>
@@ -483,11 +417,9 @@ EOD;
         </p>
         <table cellspacing="0" cellpadding="0" border="0" style="line-height: 15px;">
             <tr>
-                <td style="width: 5%;">
-                    3.
+                <td style="width: 5%;">3.
                 </td>
-                <td style="width: 95%;">
-                    Felek büntetőjogi felelősségük tudatában kijelentik, hogy a Földforgalmi tv. 5. § 13. pontja szerinti 
+                <td style="width: 95%;">Felek büntetőjogi felelősségük tudatában kijelentik, hogy a Földforgalmi tv. 5. § 13. pontja szerinti 
                     közeli hozzátartozónak minősülnek, mert közöttük rokoni kapcsolat áll fenn ($data->hasznalatKozeliHozzatart).
                 </td>
             </tr>
@@ -502,11 +434,9 @@ EOD;
         </p>
         <table cellspacing="0" cellpadding="0" border="0" style="line-height: 15px;">
             <tr>
-                <td style="width: 5%;">
-                    4.
+                <td style="width: 5%;">4.
                 </td>
-                <td style="width: 95%;">
-                    A földhasználatba adó a föld használatát a földhasználatba vevőnek ingyenesen engedi át, ezért a szerződő felek földhasználati díjat nem állapítanak meg.
+                <td style="width: 95%;">A földhasználatba adó a föld használatát a földhasználatba vevőnek ingyenesen engedi át, ezért a szerződő felek földhasználati díjat nem állapítanak meg.
                 </td>
             </tr>
         </table>
@@ -520,11 +450,9 @@ EOD;
         </p>
         <table cellspacing="0" cellpadding="0" border="0" style="line-height: 15px;">
             <tr>
-                <td style="width: 5%;">
-                    5.
+                <td style="width: 5%;">5.
                 </td>
-                <td style="width: 95%;">
-                    A földhasználatba vevő köteles az 1. pontban megjelölt ingatlant a jó gazda gondosságával művelési ágának megfelelően művelni és folyamatosan gondoskodni a termőképességének fenntartásáról. Az ingatlan használatának jogát sem visszterhes, sem ingyenes szerződésben harmadik fél részére nem engedheti át.
+                <td style="width: 95%;">A földhasználatba vevő köteles az 1. pontban megjelölt ingatlant a jó gazda gondosságával művelési ágának megfelelően művelni és folyamatosan gondoskodni a termőképességének fenntartásáról. Az ingatlan használatának jogát sem visszterhes, sem ingyenes szerződésben harmadik fél részére nem engedheti át.
                 </td>
             </tr>
         </table>
@@ -540,11 +468,9 @@ EOD;
         </p>
         <table cellspacing="0" cellpadding="0" border="0" style="line-height: 15px;">
             <tr>
-                <td style="width: 5%;">
-                    6.
+                <td style="width: 5%;">6.
                 </td>
-                <td style="width: 95%;">
-                A szerződő felek megállapodnak abban, hogy a jelen szerződés 1. pontjában megjelölt ingatlant 
+                <td style="width: 95%;">A szerződő felek megállapodnak abban, hogy a jelen szerződés 1. pontjában megjelölt ingatlant 
                 $ev_ho_nap 
                 napjától a földhasználó birtokba veszi és a szerződés időtartama alatt szedi annak hasznait, viseli terheit.
                 </td>
@@ -560,11 +486,9 @@ EOD;
         </p>
         <table cellspacing="0" cellpadding="0" border="0" style="line-height: 15px;">
             <tr>
-                <td style="width: 5%;">
-                    7.
+                <td style="width: 5%;">7.
                 </td>
-                <td style="width: 95%;">
-                    Jelen szívességi földhasználati szerződés megszűnése esetén a földrészletet
+                <td style="width: 95%;">Jelen szívességi földhasználati szerződés megszűnése esetén a földrészletet
                     - különös tekintettel a gyommentességre - olyan állapotban kell visszaadni a tulajdonosnak, 
                     hogy azon a rendeltetésszerű gazdálkodás azonnal folytatható legyen.
                 </td>
@@ -580,11 +504,9 @@ EOD;
         </p>
         <table cellspacing="0" cellpadding="0" border="0" style="line-height: 15px;">
             <tr>
-                <td style="width: 5%;">
-                    8.
+                <td style="width: 5%;">8.
                 </td>
-                <td style="width: 95%;">
-                    Földhasználatba vevő kijelenti, hogy rendelkezik a fentiek szerinti termőföld megműveléséhez 
+                <td style="width: 95%;">Földhasználatba vevő kijelenti, hogy rendelkezik a fentiek szerinti termőföld megműveléséhez 
                     szükséges jogi és személyi feltételekkel és azokat a szerződés hatálya alatt is fenntartja. A földhasználatba 
                     vevő jelen szerződés aláírásával kijelenti, hogy személyében megfelel a Földforgalmi tv. 5. § 7. pontjában foglalt
                     földműves fogalmának.
@@ -601,26 +523,19 @@ EOD;
         </p>
         <table cellspacing="0" cellpadding="0" border="0" style="line-height: 15px;">
             <tr>
-                <td style="width: 5%;">
-                    9.
+                <td style="width: 5%;">9.
                 </td>
-                <td style="width: 95%;">
-                    Földhasználatba vevő a Földforgalmi tv. 42. §-a alapján az alábbiak szerint nyilatkozom:
+                <td style="width: 95%;">Földhasználatba vevő a Földforgalmi tv. 42. §-a alapján az alábbiak szerint nyilatkozom:
                     <ul>
-                        <li>
-                            A földhasználati jog megszerzésére jogosultsággal rendelkezem, megfelelek a 40. § (1) – (4) bekezdésben, valamint a 41. §-ban foglalt feltételeknek.
+                        <li>A földhasználati jog megszerzésére jogosultsággal rendelkezem, megfelelek a 40. § (1) – (4) bekezdésben, valamint a 41. §-ban foglalt feltételeknek.
                         </li>
-                        <li>
-                            A szívességi földhasználati szerződésben megjelölt föld használatát másnak nem engedem át, azt magam használom.
+                        <li>A szívességi földhasználati szerződésben megjelölt föld használatát másnak nem engedem át, azt magam használom.
                         </li>
-                        <li>
-                            A szívességi földhasználati szerződés időtartama alatt az 1. pontban leírt földre vonatkozóan eleget teszek földhasznosítási kötelezettségemnek.
+                        <li>A szívességi földhasználati szerződés időtartama alatt az 1. pontban leírt földre vonatkozóan eleget teszek földhasznosítási kötelezettségemnek.
                         </li>
-                        <li>
-                            Nincs jogerősen megállapított és fennálló földhasználati díjtartozásom.
+                        <li>Nincs jogerősen megállapított és fennálló földhasználati díjtartozásom.
                         </li>
-                        <li>
-                            A szívességi földhasználati szerződés tárgyát képező föld használatba vételével a már birtokomban és használatomban lévő földterületek nagysága nem haladja meg a Földforgalmi tv. 16. § (2) – (5) bekezdések szerinti birtokmaximumot.
+                        <li>A szívességi földhasználati szerződés tárgyát képező föld használatba vételével a már birtokomban és használatomban lévő földterületek nagysága nem haladja meg a Földforgalmi tv. 16. § (2) – (5) bekezdések szerinti birtokmaximumot.
                         </li>
                     </ul>
                 </td>
@@ -636,11 +551,9 @@ EOD;
         </p>
         <table cellspacing="0" cellpadding="0" border="0" style="line-height: 15px;">
             <tr>
-                <td style="width: 5%;">
-                    10.
+                <td style="width: 5%;">10.
                 </td>
-                <td style="width: 95%;">
-                    Földhasználatba vevő kijelenti, hogy a szívességi földhasználati szerződés tárgyát képező ingatlan elhelyezkedését, természetbeni határait ismeri.
+                <td style="width: 95%;">Földhasználatba vevő kijelenti, hogy a szívességi földhasználati szerződés tárgyát képező ingatlan elhelyezkedését, természetbeni határait ismeri.
                 </td>
             </tr>
         </table>
@@ -654,11 +567,9 @@ EOD;
         </p>
         <table cellspacing="0" cellpadding="0" border="0" style="line-height: 15px;">
             <tr>
-                <td style="width: 5%;">
-                    11.
+                <td style="width: 5%;">11.
                 </td>
-                <td style="width: 95%;">
-                    A jelen szívességi földhasználati szerződésben foglalt termőföld területet terhelő közterheket a földhasználatba vevő köteles megfizetni. 
+                <td style="width: 95%;">A jelen szívességi földhasználati szerződésben foglalt termőföld területet terhelő közterheket a földhasználatba vevő köteles megfizetni. 
                 </td>
             </tr>
         </table>
@@ -672,11 +583,9 @@ EOD;
         </p>
         <table cellspacing="0" cellpadding="0" border="0" style="line-height: 15px;">
             <tr>
-                <td style="width: 5%;">
-                    12.
+                <td style="width: 5%;">12.
                 </td>
-                <td style="width: 95%;">
-                    A földhasználókat megillető és jogszabály szerint járó támogatásokat a földhasználatba vevő jogosult igénybe venni.
+                <td style="width: 95%;">A földhasználókat megillető és jogszabály szerint járó támogatásokat a földhasználatba vevő jogosult igénybe venni.
                 </td>
             </tr>
         </table>
@@ -690,26 +599,19 @@ EOD;
         </p>
         <table cellspacing="0" cellpadding="0" border="0" style="line-height: 15px;">
             <tr>
-                <td style="width: 5%;">
-                    13.
+                <td style="width: 5%;">13.
                 </td>
-                <td style="width: 95%;">
-                    A szerződő felek megállapodnak abban, hogy jelen szívességi földhasználati szerződés megszűnik
+                <td style="width: 95%;">A szerződő felek megállapodnak abban, hogy jelen szívességi földhasználati szerződés megszűnik
                     <ul>
-                        <li>
-                            a határozott időtartamú szívességi földhasználati szerződés esetén az időtartam lejártával, a lejárat napján,
+                        <li>a határozott időtartamú szívességi földhasználati szerződés esetén az időtartam lejártával, a lejárat napján,
                         </li>
-                        <li>
-                            határozatlan időtartamú szerződés esetén közös megegyezéssel, a szerződő felek által meghatározott napon,
+                        <li>határozatlan időtartamú szerződés esetén közös megegyezéssel, a szerződő felek által meghatározott napon,
                         </li>
-                        <li>
-                            felmondással,
+                        <li>felmondással,
                         </li>
-                        <li>
-                            azonnali hatályú felmondással,
+                        <li>azonnali hatályú felmondással,
                         </li>
-                        <li>
-                            a határozatlan időtartamú szerződés esetén a szerződő felek közötti közeli hozzátartozói viszony bármilyen okból történő megszűnésével, e tényhelyzet beálltát követő 30. napon.
+                        <li>a határozatlan időtartamú szerződés esetén a szerződő felek közötti közeli hozzátartozói viszony bármilyen okból történő megszűnésével, e tényhelyzet beálltát követő 30. napon.
                         </li>
                     </ul>
                 </td>
@@ -725,11 +627,9 @@ EOD;
         </p>
         <table cellspacing="0" cellpadding="0" border="0" style="line-height: 15px;">
             <tr>
-                <td style="width: 5%;">
-                    14.
+                <td style="width: 5%;">14.
                 </td>
-                <td style="width: 95%;">
-                    A határozatlan időre kötött szívességi földhasználati szerződés 60 napos felmondási idővel mondható fel. A határozott időtartamú szívességi földhasználati szerződés azonnali hatályú felmondással való megszüntetésére – a szerződő felek eltérő megállapodása hiányában - a haszonbérleti szerződés azonnali hatályú felmondására vonatkozó szabályok az irányadók.
+                <td style="width: 95%;">A határozatlan időre kötött szívességi földhasználati szerződés 60 napos felmondási idővel mondható fel. A határozott időtartamú szívességi földhasználati szerződés azonnali hatályú felmondással való megszüntetésére – a szerződő felek eltérő megállapodása hiányában - a haszonbérleti szerződés azonnali hatályú felmondására vonatkozó szabályok az irányadók.
                 </td>
             </tr>
         </table>
@@ -743,11 +643,9 @@ EOD;
         </p>
         <table cellspacing="0" cellpadding="0" border="0" style="line-height: 15px;">
             <tr>
-                <td style="width: 5%;">
-                    15.
+                <td style="width: 5%;">15.
                 </td>
-                <td style="width: 95%;">
-                    A jelen szívességi földhasználati szerződésben nem szabályozott kérdésekben a Polgári Törvénykönyvről szóló 2013. évi V. törvény, továbbá Földforgalmi tv., valamint a mező- és erdőgazdasági földek forgalmáról szóló 2013. évi CXXII. törvénnyel összefüggő egyes rendelkezésekről és átmeneti szabályokról szóló 2013. évi CCXII. törvény szívességi földhasználatra vonatkozó rendelkezései az irányadóak.
+                <td style="width: 95%;">A jelen szívességi földhasználati szerződésben nem szabályozott kérdésekben a Polgári Törvénykönyvről szóló 2013. évi V. törvény, továbbá Földforgalmi tv., valamint a mező- és erdőgazdasági földek forgalmáról szóló 2013. évi CXXII. törvénnyel összefüggő egyes rendelkezésekről és átmeneti szabályokról szóló 2013. évi CCXII. törvény szívességi földhasználatra vonatkozó rendelkezései az irányadóak.
                 </td>
             </tr>
         </table>
@@ -761,11 +659,9 @@ EOD;
         </p>
         <table cellspacing="0" cellpadding="0" border="0" style="line-height: 15px;">
             <tr>
-                <td style="width: 5%;">
-                    16.
+                <td style="width: 5%;">16.
                 </td>
-                <td style="width: 95%;">
-                    A szerződő felek tudomásul veszik, hogy jelen szívességi földhasználati szerződés érvényességének a szívességi használatba vevő földhasználatának, földhasználati nyilvántartásban történő bejegyzésének előfeltétele a szerződés mezőgazdasági igazgatási szerv részéről történő jóváhagyása. Jelen szívességi földhasználati szerződést az aláírástól számított 8 napon belül a földhasználatba vevő köteles mezőgazdasági igazgatási szervhez jóváhagyás céljából benyújtani.
+                <td style="width: 95%;">A szerződő felek tudomásul veszik, hogy jelen szívességi földhasználati szerződés érvényességének a szívességi használatba vevő földhasználatának, földhasználati nyilvántartásban történő bejegyzésének előfeltétele a szerződés mezőgazdasági igazgatási szerv részéről történő jóváhagyása. Jelen szívességi földhasználati szerződést az aláírástól számított 8 napon belül a földhasználatba vevő köteles mezőgazdasági igazgatási szervhez jóváhagyás céljából benyújtani.
                 </td>
             </tr>
         </table>
@@ -776,8 +672,7 @@ EOD;
         <p style="line-height: 10px;">
             &nbsp;
         </p>
-        <p>
-            Kijelentem, hogy jelen okiratban foglaltak a valóságnak megfelelnek.
+        <p>Kijelentem, hogy jelen okiratban foglaltak a valóságnak megfelelnek.
         </p>
         EOD;
         $pdf->writeHTML($html, false, false, false, false);
@@ -787,8 +682,7 @@ EOD;
         <p style="line-height: 10px;">
             &nbsp;
         </p>
-        <p style="line-height: 15px;">
-            Jelen szívességi földhasználati szerződést megkötő felek, mint szerződéses akaratuknak mindben
+        <p style="line-height: 15px;">Jelen szívességi földhasználati szerződést megkötő felek, mint szerződéses akaratuknak mindben
              megegyezőt elolvasás és értelmezés után helyben jóváhagyólag írják alá.
         </p>
         EOD;
